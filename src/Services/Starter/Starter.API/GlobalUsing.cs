@@ -1,0 +1,1 @@
+﻿global using Starter.Application.Endpoints.Categories.Commands;
