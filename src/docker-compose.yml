@@ -1,0 +1,15 @@
+services:
+  starter.api:
+    image: ${DOCKER_REGISTRY-}starterapi
+    build:
+      context: .
+      dockerfile: Services/Starter/Starter.API/Dockerfile
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
+

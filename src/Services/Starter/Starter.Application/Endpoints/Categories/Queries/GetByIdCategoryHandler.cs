@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Starter.Application.Endpoints.Categories.Queries
+﻿namespace Starter.Application.Endpoints.Categories.Queries
 {
     public class GetByIdCategoryHandler(IApplicationDbContext dbContext)
         : IQueryHandler<GetCategoryByIdQuery, GetCategoryByIdResult>

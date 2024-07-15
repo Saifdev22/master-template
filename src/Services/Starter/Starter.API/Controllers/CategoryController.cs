@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Starter.Application.Endpoints.Categories.Commands;
 using Starter.Application.Endpoints.Categories.Queries;
-using Starter.Domain.Models;
-using System.Data.SqlTypes;
 
 namespace Starter.API.Controllers
 {

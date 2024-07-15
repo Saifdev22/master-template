@@ -1,4 +1,4 @@
-using BuildingBlocks.Exceptions.Handler;
+using Serilog;
 using Starter.API;
 using Starter.Application;
 using Starter.Infrastructure;
@@ -6,6 +6,10 @@ using Starter.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+//Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 //Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -22,8 +26,10 @@ builder.Services
 
 var app = builder.Build();
 
+//Exception Handler
 app.UseExceptionHandler(_ => { });
 
+//Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -31,6 +37,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Serilog
+app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
 

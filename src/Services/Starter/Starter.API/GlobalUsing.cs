@@ -1,1 +1,1 @@
-﻿global using Starter.Application.Endpoints.Categories.Commands;
+﻿global using BuildingBlocks.Exceptions.Handler;
