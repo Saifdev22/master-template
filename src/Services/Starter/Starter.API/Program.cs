@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Serilog;
 using Starter.API;
 using Starter.Application;
@@ -24,6 +25,32 @@ builder.Services
     .AddApplicationServices(builder.Configuration)
     .AddInfrastructureServices(builder.Configuration);
 
+// Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+        //.WithOrigins("http://client.saifkhan.co.za", "https://localhost:7100")
+        //.AllowCredentials()
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+       
+});
+
+
+//Http Client
+builder.Services.AddHttpClient("testapi", (serviceProvider, client) =>
+{
+    //var settings = serviceProvider
+    //    .GetRequiredService<IOptions<GitHubSettings>>().Value;
+
+    //client.DefaultRequestHeaders.Add("Authorization", "ss");
+    //client.DefaultRequestHeaders.Add("User-Agent", "");
+
+    client.BaseAddress = new Uri("https://fakestoreapi.com");
+});
+
 var app = builder.Build();
 
 //Exception Handler
@@ -37,6 +64,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 //Serilog
 app.UseSerilogRequestLogging();

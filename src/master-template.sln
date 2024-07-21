@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.BlazorWASM", "Clien
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0D5FF5B4-756B-439F-989E-2A3090E16F84}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocksClient", "BuildingBlocks\BuildingBlocksClient\BuildingBlocksClient.csproj", "{429510B7-C482-48E8-88B1-2F8B1C22BD66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{0D5FF5B4-756B-439F-989E-2A3090E16F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D5FF5B4-756B-439F-989E-2A3090E16F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D5FF5B4-756B-439F-989E-2A3090E16F84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{429510B7-C482-48E8-88B1-2F8B1C22BD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{429510B7-C482-48E8-88B1-2F8B1C22BD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{429510B7-C482-48E8-88B1-2F8B1C22BD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{429510B7-C482-48E8-88B1-2F8B1C22BD66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{E7B0A3BE-9F73-49DD-A268-980FDD4D6D65} = {33B3DB57-708A-4896-ABB2-2E8F5924FCC3}
 		{4297D883-3C24-4AAB-9E3B-EBA4767C775E} = {1147347A-6B55-48B3-A701-0EE852EF866D}
 		{30DC4985-18F9-49F8-AC99-36A3EB7FA164} = {34636A35-78DA-48CB-B147-A9E874DA98B5}
+		{429510B7-C482-48E8-88B1-2F8B1C22BD66} = {1147347A-6B55-48B3-A701-0EE852EF866D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A0B44760-3274-4866-92C7-ADADEA9C1ED0}

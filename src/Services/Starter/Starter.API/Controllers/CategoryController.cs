@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Starter.Application.Endpoints.Categories.Commands;
 using Starter.Application.Endpoints.Categories.Queries;
+using Starter.Application.ProductContract.Commands;
 
 namespace Starter.API.Controllers
 {
@@ -14,6 +15,16 @@ namespace Starter.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Guid>> Create(CreateCategoryCommand request)
+        {
+            var result = await _sender.Send(request);
+            return Ok(result);
+        }
+
+        //[HttpPost(Name = "CreateProduct")]
+        [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> CreateProduct(CreateProductCommand request)
         {
             var result = await _sender.Send(request);
             return Ok(result);
