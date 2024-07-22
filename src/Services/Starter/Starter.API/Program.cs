@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Options;
+using BuildingBlocks.Gateway;
 using Serilog;
 using Starter.API;
 using Starter.Application;
@@ -12,8 +12,10 @@ builder.Services.AddControllers();
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-//Swagger
+//For Minimal APIs
 builder.Services.AddEndpointsApiExplorer();
+
+//Swagger
 builder.Services.AddSwaggerGen();
 
 //Exception Handler
@@ -71,6 +73,9 @@ app.UseCors("CorsPolicy");
 app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
+
+//Only allow requests from the gateway.
+app.UseMiddleware<RestrictAccessMiddleware>();
 
 app.MapControllers();
 

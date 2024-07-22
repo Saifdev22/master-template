@@ -36,5 +36,14 @@ namespace Starter.API.Controllers
             return Ok(client);
         }
 
+        [HttpGet("GetWithNone")]
+        public ActionResult<string> GetWithNone()
+        {
+            var name = "";
+            if (string.IsNullOrWhiteSpace(name)){ name = "KhanSaif"; }
+            Console.WriteLine($"Hello, {name}!");
+            return Ok(name);
+        }
+
     }
 }
