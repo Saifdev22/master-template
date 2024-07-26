@@ -1,5 +1,9 @@
 using BuildingBlocks.Gateway;
+using Identity.API.Data;
+using Identity.API.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -8,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen();
+
+//Database Connection
+builder.Services.AddDbContext<AppDbContext>(options =>
+         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // JWT
 builder.Services.AddAuthentication(options =>
@@ -30,6 +38,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//Cors
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -37,6 +46,8 @@ builder.Services.AddCors(options =>
         builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
+
+builder.Services.AddTransient<CustomAuthorizationMiddleware>();
 
 var app = builder.Build();
 
@@ -54,6 +65,15 @@ app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<CustomAuthenticationMiddleware>();
+app.UseMiddleware<CustomAuthorizationMiddleware>();
+app.Use(async (context, next) =>
+{
+    Console.WriteLine($"Request: {context.Request.Method} {context.Request.Path}");
+    await next();
+
+});
 
 app.MapControllers();
 

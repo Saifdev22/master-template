@@ -1,18 +1,42 @@
 {
   "Routes": [
     {
+      "UpstreamPathTemplate": "/api",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "Region": "default",
+        "Header": "OC-Caching-Control",
+        "EnableContentHashing": false
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "60s",
+        "PeriodTimespan": 6,
+        "Limit": 2
+      },
+      "Key": "Key1",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
       "DownstreamPathTemplate": "/api/Test/GetWithNone",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 7001
+        },
+        {
+          "Host": "localhost",
+          "Port": 7004
         }
-      ],
-      "UpstreamPathTemplate": "/api",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      ]
     },
     {
+      "UpstreamPathTemplate": "/api/account/{email}/{password}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "Key": "Key2",
       "DownstreamPathTemplate": "/api/account/{email}/{password}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -20,9 +44,16 @@
           "Host": "localhost",
           "Port": 7002
         }
+      ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "Key1",
+        "Key2"
       ],
-      "UpstreamPathTemplate": "/api/account/{email}/{password}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/api/aggregate"
     }
   ],
   "GlobalConfiguration": {

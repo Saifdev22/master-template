@@ -37,8 +37,9 @@ namespace Starter.API.Controllers
         }
 
         [HttpGet("GetWithNone")]
-        public ActionResult<string> GetWithNone()
+        public async Task<ActionResult<string>> GetWithNone()
         {
+            await Task.Delay(4000);
             var name = "";
             if (string.IsNullOrWhiteSpace(name)){ name = "KhanSaif"; }
             Console.WriteLine($"Hello, {name}!");

@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FE900876-A915-4C9E-ACD9-EC8C29478014}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Starter", "Starter", "{33B3DB57-708A-4896-ABB2-2E8F5924FCC3}"
-	ProjectSection(SolutionItems) = preProject
-		info.txt = info.txt
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Starter.API", "Services\Starter\Starter.API\Starter.API.csproj", "{D4A7E280-52FD-4297-9373-AD1ABBF6C1D5}"
 EndProject
@@ -33,8 +30,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{900B5FD2-AA9F-471E-93CE-8EBE58D2591D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{EE9E6488-7CC6-4C3F-A214-AB2DDDD19F64}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{09D629BF-4E3B-4007-8318-2554CBA9E6E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.API", "Services\Identity\Identity.API\Identity.API.csproj", "{09D629BF-4E3B-4007-8318-2554CBA9E6E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
