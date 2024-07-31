@@ -1,11 +1,4 @@
-﻿using Starter.Application.Endpoints.Categories.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Starter.Application.ProductContract.Commands
+﻿namespace Starter.Application.ProductContract.Commands
 {
     public class CreateProductHandler(IApplicationDbContext dbContext)
         : ICommandHandler<CreateProductCommand, CreateProductResult>

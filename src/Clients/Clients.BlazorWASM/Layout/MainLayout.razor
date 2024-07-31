@@ -3,18 +3,50 @@
 <MudPopoverProvider />
 <MudDialogProvider />
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<AuthorizeView>
+    <Authorized>
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu />
+            </div>
+            <main>
+                <div class="top-row px-4">
+                    <a class="btn btn-none" @onclick="LogoutClicked">Logout</a>
+                </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+                <article class="content px-4">
+                    <ErrorBoundary @ref="errorBoundary">
+                        <ChildContent>
+                            @Body
+                        </ChildContent>
+                        <ErrorContent Context="Exception" >
+                            <p>Error Occured!!!</p>
+                            <p>@Exception.GetType();</p>
+                            <p>@Exception.Message;</p>
+                        </ErrorContent>
+                    </ErrorBoundary>
+                    
+                </article>
+            </main>
         </div>
+    </Authorized>
+   
+    <NotAuthorized>@Body</NotAuthorized>
+</AuthorizeView> 
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+@code {
+    private ErrorBoundary? errorBoundary;
+
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
+
+    async Task LogoutClicked()
+    {
+        var logoutModel = new TokenSession();
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)_authenticationStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
+        _navigationManager.NavigateTo("/identity/account/login", replace: true, forceLoad: true);
+    }
+}

@@ -8,7 +8,7 @@ namespace Starter.Application.Endpoints.Categories.Queries
     {
         public async Task<GetCategoriesResult> Handle(GetCategoriesQuery query, CancellationToken cancellationToken)
         {
-           // var client = factory.CreateClient("wordpress");
+            // var client = factory.CreateClient("wordpress");
 
             var pageIndex = query.PaginationRequest.PageIndex;
             var pageSize = query.PaginationRequest.PageSize;

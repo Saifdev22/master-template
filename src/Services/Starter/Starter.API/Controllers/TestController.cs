@@ -1,11 +1,4 @@
-﻿using Azure;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Starter.Application.Endpoints.Categories.Queries;
-using System.Collections;
-using System.Net.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Starter.API.Controllers
 {
@@ -41,7 +34,7 @@ namespace Starter.API.Controllers
         {
             await Task.Delay(4000);
             var name = "";
-            if (string.IsNullOrWhiteSpace(name)){ name = "KhanSaif"; }
+            if (string.IsNullOrWhiteSpace(name)) { name = "KhanSaif"; }
             Console.WriteLine($"Hello, {name}!");
             return Ok(name);
         }

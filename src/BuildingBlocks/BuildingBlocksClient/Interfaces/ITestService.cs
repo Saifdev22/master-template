@@ -1,6 +1,6 @@
-﻿using Clients.BlazorWASM.Models;
+﻿using BuildingBlocksClient.Models;
 
-namespace Clients.BlazorWASM.Services
+namespace BuildingBlocksClient.Interfaces
 {
     public interface ITestService
     {

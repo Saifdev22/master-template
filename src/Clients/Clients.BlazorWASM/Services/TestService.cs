@@ -1,5 +1,5 @@
-﻿using Clients.BlazorWASM.Models;
-using System.Net.Http;
+﻿using BuildingBlocksClient.Interfaces;
+using BuildingBlocksClient.Models;
 using System.Net.Http.Json;
 
 namespace Clients.BlazorWASM.Services

@@ -17,27 +17,27 @@
         "Limit": 2
       },
       "Key": "Key1",
-      "LoadBalancerOptions": {
-        "Type": "LeastConnection"
-      },
+      //"LoadBalancerOptions": {
+      //  "Type": "LeastConnection"
+      //},
       "DownstreamPathTemplate": "/api/Test/GetWithNone",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
           "Port": 7001
-        },
-        {
-          "Host": "localhost",
-          "Port": 7004
         }
+        //,{
+        //  "Host": "localhost",
+        //  "Port": 7004
+        //}
       ]
     },
     {
-      "UpstreamPathTemplate": "/api/account/{email}/{password}",
+      "UpstreamPathTemplate": "/identity/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "Key": "Key2",
-      "DownstreamPathTemplate": "/api/account/{email}/{password}",
+      "DownstreamPathTemplate": "/identity/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

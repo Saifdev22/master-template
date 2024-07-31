@@ -1,73 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.Collections.Concurrent;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using BuildingBlocksClient.DTOs;
+using BuildingBlocksClient.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("identity/[controller]")]
     [ApiController]
-    public class AccountController(IConfiguration _config) : ControllerBase
+    public class AccountController(IUserService userAccount) : ControllerBase
     {
-        private static ConcurrentDictionary<string, string> UserData { get; set; } = 
-            new ConcurrentDictionary<string, string>();
-
-        [HttpPost("login/{email}/{password}")]
-        public async Task<IActionResult> Login(string email, string password)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterDTO userDTO)
         {
-            await Task.Delay(500);
-            var getEmail = UserData!.Keys.Where(e => e.Equals(email)).FirstOrDefault();
-
-            if (!string.IsNullOrEmpty(getEmail))
-            {
-                UserData.TryGetValue(getEmail, out string? dbPassword);
-                if (!Equals(dbPassword, password)) 
-                    return BadRequest("Invalid Credentials");
-
-                string jwtToken = GenerateToken(getEmail);
-                return Ok(jwtToken);
-
-            }
-            return NotFound("Email not found");
+            var response = await userAccount.CreateAccount(userDTO);
+            return Ok(response);
         }
 
-        [HttpPost("register/{email}/{password}")]
-        public async Task<IActionResult> Register(string email, string password)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            await Task.Delay(500);
-            var getEmail = UserData!.Keys.Where(e => e.Equals(email)).FirstOrDefault();
-
-            if (!string.IsNullOrEmpty(getEmail))
-                return BadRequest("User already exist");
-
-            UserData[email] = password;
-            return Ok("User created successfully");
-        }
-
-        private string GenerateToken(string getEmail)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]!));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, getEmail!),
-            };
-
-            var tokenDescriptor = new JwtSecurityToken
-            (
-                issuer: _config["JWT:Issuer"],
-                audience: _config["JWT:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: credentials
-            );
-
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-
-            return token;
+            var response = await userAccount.LoginAccount(loginDTO);
+            return Ok(response);
         }
     }
 }

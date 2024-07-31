@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Starter.Domain.Models
+﻿namespace Starter.Domain.Models
 {
     public class ProductDM : Entity<int>
     {

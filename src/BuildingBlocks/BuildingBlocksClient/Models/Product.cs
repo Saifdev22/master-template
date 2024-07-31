@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Clients.BlazorWASM.Models
+namespace BuildingBlocksClient.Models
 {
     public class Product
     {

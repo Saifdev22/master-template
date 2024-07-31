@@ -5,7 +5,7 @@ namespace Identity.API.Middlewares
 {
     public class CustomAuthenticationMiddleware(RequestDelegate next)
     {
-        public async Task InvokeAsync(HttpContext context) 
+        public async Task InvokeAsync(HttpContext context)
         {
             var authHeader = context.Request.Headers["AuthState"].FirstOrDefault();
             if (!string.IsNullOrEmpty(authHeader))

@@ -1,12 +1,31 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@using Clients.BlazorWASM.Layout
+@using Microsoft.AspNetCore.Components.Authorization
+
+<CascadingAuthenticationState>
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing><h2>Please wait...</h2></Authorizing>
+                <NotAuthorized>
+                    @if(context.User?.Identity?.IsAuthenticated == false)
+                    {
+                        <Clients.BlazorWASM.Pages.Identity.LoginPage />
+                        //<h3>App.Razor</h3>
+                    }
+                    else
+                    {
+                        <p>You are not authorised to access this resource.</p>
+                        <h3>App.Razor</h3>
+                    }
+                </NotAuthorized>
+        </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
+        <LayoutView Layout="@typeof(AuthenticationLayout)">
             <p role="alert">Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>
 </Router>
+</CascadingAuthenticationState>
