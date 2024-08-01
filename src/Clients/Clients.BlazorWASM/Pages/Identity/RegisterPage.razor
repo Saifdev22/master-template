@@ -1,4 +1,6 @@
 ﻿@page "/identity/account/register"
+@using Clients.BlazorWASM.Layout
+@layout AuthLayout
 @attribute [AllowAnonymous]
 
     <div class="login-box">
@@ -209,6 +211,7 @@
     async Task HandleRegistration()
     {
         ShowLoadingButton = true;
+
         var result = await _userServiceClient.CreateAccount(User);
         if (result.Flag)
         {
@@ -220,6 +223,7 @@
         {
             await _js.InvokeVoidAsync("alert", "Error");
         }
+
         ShowLoadingButton = false;
     }
 

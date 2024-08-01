@@ -6,25 +6,13 @@ using Starter.Application.ProductContract.Commands;
 
 namespace Starter.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("starter/[controller]")]
     [ApiController]
     public class CategoryController(ISender _sender) : ControllerBase
     {
 
-        [HttpPost(Name = "CreateCategory")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpPost(Name = "addCategory")]
         public async Task<ActionResult<Guid>> Create(CreateCategoryCommand request)
-        {
-            var result = await _sender.Send(request);
-            return Ok(result);
-        }
-
-        //[HttpPost(Name = "CreateProduct")]
-        [HttpPost("[action]")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> CreateProduct(CreateProductCommand request)
         {
             var result = await _sender.Send(request);
             return Ok(result);
@@ -36,7 +24,9 @@ namespace Starter.API.Controllers
             return Ok(await _sender.Send(query));
         }
 
-        [HttpGet("GetById")]
+        //Uses action name as route name
+        [HttpGet("[action]")]
+        //[HttpGet("GetById")]
         public async Task<ActionResult<GetCategoryByIdResult>> GetById(Guid query)
         {
             return Ok(await _sender.Send(new GetCategoryByIdQuery(query)));

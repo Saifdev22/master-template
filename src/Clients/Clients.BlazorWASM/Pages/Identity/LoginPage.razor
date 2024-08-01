@@ -1,4 +1,6 @@
 ﻿@page "/identity/account/login"
+@using Clients.BlazorWASM.Layout
+@layout AuthLayout
 
 <div class="login-box">
     <div class="login-header">
@@ -187,8 +189,6 @@
             transition: .3s;
         }
 </style>
-
-
 
 @code {
     [CascadingParameter]

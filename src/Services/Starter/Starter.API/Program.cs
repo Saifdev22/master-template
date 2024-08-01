@@ -75,7 +75,7 @@ app.UseSerilogRequestLogging();
 app.UseAuthorization();
 
 //Only allow requests from the gateway.
-app.UseMiddleware<RestrictAccessMiddleware>();
+//app.UseMiddleware<RestrictAccessMiddleware>();
 
 app.MapControllers();
 

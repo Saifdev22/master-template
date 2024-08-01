@@ -9,7 +9,8 @@
             (
                 Guid.NewGuid(),
                 command.category.CategoryCode,
-                command.category.CategoryDesc
+                command.category.CategoryDesc,
+                command.category.IsActive
             );
 
             dbContext.Categories.Add(category);

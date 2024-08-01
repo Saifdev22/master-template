@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Starter.Application.ProductContract.Commands;
 
 namespace Starter.API.Controllers
 {
@@ -37,6 +39,11 @@ namespace Starter.API.Controllers
             if (string.IsNullOrWhiteSpace(name)) { name = "KhanSaif"; }
             Console.WriteLine($"Hello, {name}!");
             return Ok(name);
+        }
+        public async Task<ActionResult<int>> CreateProduct(CreateProductCommand request)
+        {
+           // var result = await _sender.Send(request);
+            return Ok(request);
         }
 
     }

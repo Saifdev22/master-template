@@ -12,7 +12,9 @@ namespace Starter.Infrastructure.Data.Configurations
             //        customerId => customerId.Value,
             //        dbId => CustomerId.Of(dbId));
 
-            builder.Property(c => c.CategoryCode).HasMaxLength(5).IsRequired();
+            builder.Property(c => c.CategoryCode)
+                .HasMaxLength(15)
+                .IsRequired();
 
             builder.Property(c => c.CategoryDesc).HasMaxLength(50);
 
