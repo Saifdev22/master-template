@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Starter.Application.Endpoints.Categories.Commands
+namespace Starter.Application.Categories.Commands.CreateCategory
 {
     public record CreateCategoryCommand(CategoryDto category)
         : ICommand<CreateCategoryResult>;

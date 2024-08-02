@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Xml.Linq;
 
 namespace Clients.BlazorWASM.Helpers
 {
@@ -11,17 +10,17 @@ namespace Clients.BlazorWASM.Helpers
         private ClaimsPrincipal anonymous = new(new ClaimsIdentity());
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-                var stringToken = await _localStorageService.GetToken();
-                if (string.IsNullOrWhiteSpace(stringToken)) return await Task.FromResult(new AuthenticationState(anonymous));
+            var stringToken = await _localStorageService.GetToken();
+            if (string.IsNullOrWhiteSpace(stringToken)) return await Task.FromResult(new AuthenticationState(anonymous));
 
-                var deserializeToken = Serialization.DeserializeJsonString<TokenSession>(stringToken);
-                if (deserializeToken == null) return await Task.FromResult(new AuthenticationState(anonymous));
+            var deserializeToken = Serialization.DeserializeJsonString<TokenSession>(stringToken);
+            if (deserializeToken == null) return await Task.FromResult(new AuthenticationState(anonymous));
 
-                var getUserClaims = GetClaimsFromToken(deserializeToken.Token!);
-                if (getUserClaims == null) return await Task.FromResult(new AuthenticationState(anonymous));
+            var getUserClaims = GetClaimsFromToken(deserializeToken.Token!);
+            if (getUserClaims == null) return await Task.FromResult(new AuthenticationState(anonymous));
 
-                var claimsPrincipal = SetClaimPrincipal(getUserClaims);
-                return await Task.FromResult(new AuthenticationState(claimsPrincipal));
+            var claimsPrincipal = SetClaimPrincipal(getUserClaims);
+            return await Task.FromResult(new AuthenticationState(claimsPrincipal));
         }
 
         public async Task UpdateAuthenticationState(TokenSession session)

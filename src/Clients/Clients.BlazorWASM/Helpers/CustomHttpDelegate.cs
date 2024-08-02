@@ -1,6 +1,5 @@
 ﻿using BuildingBlocksClient.DTOs;
 using BuildingBlocksClient.Interfaces;
-using BuildingBlocksClient.Models;
 using System.Net;
 
 namespace Clients.BlazorWASM.Helpers

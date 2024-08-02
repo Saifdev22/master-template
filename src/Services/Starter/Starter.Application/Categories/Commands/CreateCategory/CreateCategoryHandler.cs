@@ -1,4 +1,4 @@
-﻿namespace Starter.Application.Endpoints.Categories.Commands
+﻿namespace Starter.Application.Categories.Commands.CreateCategory
 {
     public class CreateCategoryHandler(IApplicationDbContext dbContext)
         : ICommandHandler<CreateCategoryCommand, CreateCategoryResult>

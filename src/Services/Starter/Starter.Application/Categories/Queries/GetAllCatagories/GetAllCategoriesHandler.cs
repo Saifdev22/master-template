@@ -1,12 +1,12 @@
 ﻿using BuildingBlocks.Pagination;
 using Microsoft.EntityFrameworkCore;
 
-namespace Starter.Application.Endpoints.Categories.Queries
+namespace Starter.Application.Categories.Queries.GetAllCatagories
 {
-    public class GetCategoriesHandler(IApplicationDbContext dbContext)
-        : IQueryHandler<GetCategoriesQuery, GetCategoriesResult>
+    public class GetAllCategoriesHandler(IApplicationDbContext dbContext)
+        : IQueryHandler<GetAllCategoriesQuery, GetCategoriesResult>
     {
-        public async Task<GetCategoriesResult> Handle(GetCategoriesQuery query, CancellationToken cancellationToken)
+        public async Task<GetCategoriesResult> Handle(GetAllCategoriesQuery query, CancellationToken cancellationToken)
         {
             // var client = factory.CreateClient("wordpress");
 

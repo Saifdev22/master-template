@@ -1,8 +1,8 @@
 ﻿using BuildingBlocks.Pagination;
 
-namespace Starter.Application.Endpoints.Categories.Queries
+namespace Starter.Application.Categories.Queries.GetAllCatagories
 {
-    public record GetCategoriesQuery(PaginationRequest PaginationRequest)
+    public record GetAllCategoriesQuery(PaginationRequest PaginationRequest)
         : IQuery<GetCategoriesResult>;
 
     public record GetCategoriesResult(PaginatedResult<Category> Categories);

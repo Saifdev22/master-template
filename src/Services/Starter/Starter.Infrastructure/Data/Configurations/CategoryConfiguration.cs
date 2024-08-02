@@ -16,9 +16,10 @@ namespace Starter.Infrastructure.Data.Configurations
                 .HasMaxLength(15)
                 .IsRequired();
 
+            builder.HasIndex(c => c.CategoryCode).IsUnique();
+
             builder.Property(c => c.CategoryDesc).HasMaxLength(50);
 
-            builder.HasIndex(c => c.CategoryCode).IsUnique();
         }
     }
 }

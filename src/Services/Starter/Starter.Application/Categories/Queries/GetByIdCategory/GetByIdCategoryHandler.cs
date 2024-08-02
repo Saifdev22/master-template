@@ -1,4 +1,4 @@
-﻿namespace Starter.Application.Endpoints.Categories.Queries
+﻿namespace Starter.Application.Categories.Queries.GetCategoryById
 {
     public class GetByIdCategoryHandler(IApplicationDbContext dbContext)
         : IQueryHandler<GetCategoryByIdQuery, GetCategoryByIdResult>

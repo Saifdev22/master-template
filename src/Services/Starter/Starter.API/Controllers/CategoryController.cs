@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Starter.Application.Endpoints.Categories.Commands;
-using Starter.Application.Endpoints.Categories.Queries;
-using Starter.Application.ProductContract.Commands;
+using Starter.Application.Categories.Commands.CreateCategory;
+using Starter.Application.Categories.Queries.GetAllCatagories;
+using Starter.Application.Categories.Queries.GetCategoryById;
 
 namespace Starter.API.Controllers
 {
@@ -12,21 +12,18 @@ namespace Starter.API.Controllers
     {
 
         [HttpPost(Name = "addCategory")]
-        public async Task<ActionResult<Guid>> Create(CreateCategoryCommand request)
+        public async Task<ActionResult<Guid>> Add(CreateCategoryCommand request)
         {
-            var result = await _sender.Send(request);
-            return Ok(result);
+            return Ok(await _sender.Send(request));
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetCategoriesResult>> Get([FromQuery] GetCategoriesQuery query)
+        public async Task<ActionResult<GetCategoriesResult>> GetAll([FromQuery] GetAllCategoriesQuery query)
         {
             return Ok(await _sender.Send(query));
         }
 
-        //Uses action name as route name
         [HttpGet("[action]")]
-        //[HttpGet("GetById")]
         public async Task<ActionResult<GetCategoryByIdResult>> GetById(Guid query)
         {
             return Ok(await _sender.Send(new GetCategoryByIdQuery(query)));

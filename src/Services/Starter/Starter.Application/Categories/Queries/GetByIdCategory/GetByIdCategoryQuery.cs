@@ -1,4 +1,4 @@
-﻿namespace Starter.Application.Endpoints.Categories.Queries
+﻿namespace Starter.Application.Categories.Queries.GetCategoryById
 {
     public record GetCategoryByIdQuery(Guid Id)
         : IQuery<GetCategoryByIdResult>;
