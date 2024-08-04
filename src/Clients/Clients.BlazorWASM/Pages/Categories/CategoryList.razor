@@ -1,9 +1,91 @@
 ﻿@page "/categories/categorylist"
+@using BuildingBlocksClient.Pagination
 
-<h3>CategoryList</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card">
+                    <div class="card-header"> <button class="btn btn-primary float-end" @onclick="NavigateToAddProductPage"> Add Product </button></div>
+                </div>
+                @if (Categories?.Count > 0)
+                {
+                    <div class="card-header">
+                        Product List
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Product Id</th>
+                                    <th>Product Name</th>
+                                    <th>Product Quantity</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var category in Categories.Data)
+                                {
+                                    <tr>
+                                        <td>@category.CategoryCode</td>
+                                        <td>@category.CategoryDesc</td>
+                                        <td>@category.LastModifiedBy</td>
+                                        <td>
+                                            <div class="hstack gap-2">
+@*                                                 <button class="btn  btn-info" @onclick="()=>Edit(category)"> Edit</button>
+                                                <button class="btn  btn-danger" @onclick="() => Delete(category.Id)"> Delete</button> *@
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info"> No Product Available </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
+    private PaginatedResult<CategoryGetDto>? Categories { get; set; }
 
+    PaginationRequest pageR = new PaginationRequest
+    {
+        PageIndex = 0,
+        PageSize = 20
+    };
+
+    private async Task LoadCategories()
+    {
+        var categories = await _categoryService.GetAllCategoriesAsync(pageR);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategories();
+    }
+
+    private void NavigateToAddProductPage()
+    {
+        _navigationManager.NavigateTo("manage-product");
+    }
+
+    // private void Edit(Categories model)
+    // {
+    //     _navigationManager.NavigateTo($"manage-product/{model.Id}");
+    // }
+
+    // private async Task Delete(int id)
+    // {
+    //     var product = await ProductService.DeleteProductAsync(id);
+    //     await LoadProducts();
+    // }
 
 
 }

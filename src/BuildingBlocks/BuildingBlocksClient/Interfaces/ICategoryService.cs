@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BuildingBlocksClient.DTOs;
+using BuildingBlocksClient.Pagination;
 
 namespace BuildingBlocksClient.Interfaces
 {
     public interface ICategoryService
     {
+        Task<Guid> AddCategoryAsync(CategoryDto model);
+        Task<CategoryDto> UpdateCategoryAsync(CategoryDto model);
+        Task<CategoryDto> DeleteCategoryAsync(Guid categoryId);
+        Task<PaginatedResult<CategoryGetDto>> GetAllCategoriesAsync(PaginationRequest model);
+        Task<CategoryDto> GetCategoryByIdAsync(Guid categoryId);
     }
 }

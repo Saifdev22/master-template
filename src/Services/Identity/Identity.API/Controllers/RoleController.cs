@@ -1,6 +1,4 @@
-﻿using BuildingBlocksClient.DTOs;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers
@@ -12,7 +10,7 @@ namespace Identity.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllRoles()
         {
-            var response =  _roleManager.Roles;
+            var response = _roleManager.Roles;
             return Ok(response);
         }
 

@@ -1,9 +1,9 @@
-﻿using BuildingBlocks.Pagination;
+﻿using BuildingBlocksClient.Pagination;
 
 namespace Starter.Application.Categories.Queries.GetAllCatagories
 {
     public record GetAllCategoriesQuery(PaginationRequest PaginationRequest)
         : IQuery<GetCategoriesResult>;
 
-    public record GetCategoriesResult(PaginatedResult<Category> Categories);
+    public record GetCategoriesResult(PaginatedResult<CategoryGetDto> Categories);
 }

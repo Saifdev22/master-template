@@ -9,6 +9,8 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Http
 @using Microsoft.JSInterop
 
+
+
 @using BuildingBlocksClient.Interfaces
 @using BuildingBlocksClient.DTOs
 @using Clients.BlazorWASM.Pages.Components
@@ -20,6 +22,7 @@
 
 @inject ITestService _testService
 @inject IUserService _userServiceClient
+@inject ICategoryService _categoryService
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _js

@@ -1,4 +1,4 @@
-Add-Migration -Name InitialCreate -OutputDir Data/Migrations -Context ApplicationDbContext -Project Starter.Infrastructure -StartupProject Starter.API
-Update-Database -Project Identity.API -StartupProject Identity.API
+Add-Migration -Name InitialCreate -OutputDir Multitenancy/Migrations -Context TenantDbContext -Project Starter.Infrastructure -StartupProject Starter.API
+Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Context TenantDbContext
 
 Stopped at 13 mins

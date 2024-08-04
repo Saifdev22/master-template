@@ -1,4 +1,4 @@
-﻿using BuildingBlocks.Pagination;
+﻿using BuildingBlocksClient.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace Starter.Application.Categories.Queries.GetAllCatagories
@@ -8,8 +8,6 @@ namespace Starter.Application.Categories.Queries.GetAllCatagories
     {
         public async Task<GetCategoriesResult> Handle(GetAllCategoriesQuery query, CancellationToken cancellationToken)
         {
-            // var client = factory.CreateClient("wordpress");
-
             var pageIndex = query.PaginationRequest.PageIndex;
             var pageSize = query.PaginationRequest.PageSize;
             var totalCount = await dbContext.Categories.LongCountAsync(cancellationToken);
@@ -21,12 +19,27 @@ namespace Starter.Application.Categories.Queries.GetAllCatagories
                            .Take(pageSize)
                            .ToListAsync(cancellationToken);
 
+
+            var categoryDtos = categories.Select(c => new CategoryGetDto
+            {
+                Id = c.Id,
+                CategoryCode = c.CategoryCode,
+                CategoryDesc = c.CategoryDesc,
+                IsActive = c.IsActive,
+                CreatedAt = c.CreatedAt,
+                CreatedBy = c.CreatedBy,
+                LastModified = c.LastModified,
+                LastModifiedBy = c.LastModifiedBy
+
+            }).ToList();
+
+
             return new GetCategoriesResult(
-                new PaginatedResult<Category>(
+                new PaginatedResult<CategoryGetDto>(
                     pageIndex,
                     pageSize,
                     totalCount,
-                    categories.ToList()
+                    categoryDtos.ToList()
                 ));
         }
     }

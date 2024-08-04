@@ -1,2 +1,0 @@
-﻿Domain Service/Factory
-Specification Pattern

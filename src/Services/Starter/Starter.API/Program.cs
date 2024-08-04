@@ -1,6 +1,6 @@
-using BuildingBlocks.Gateway;
 using Serilog;
 using Starter.API;
+using Starter.API.Middleware;
 using Starter.Application;
 using Starter.Infrastructure;
 
@@ -74,6 +74,7 @@ app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
 
+app.UseMiddleware<TenantResolverMiddleware>();
 //Only allow requests from the gateway.
 //app.UseMiddleware<RestrictAccessMiddleware>();
 

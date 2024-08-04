@@ -24,7 +24,9 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
 builder.Services.AddScoped<IUserService, UserServiceClient>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITestService, TestService>();
 builder.Services.AddMudServices();
 

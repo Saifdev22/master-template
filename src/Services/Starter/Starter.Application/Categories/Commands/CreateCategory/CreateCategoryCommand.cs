@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿
+using FluentValidation;
 
 namespace Starter.Application.Categories.Commands.CreateCategory
 {

@@ -1,5 +1,4 @@
 ﻿using BuildingBlocksClient.DTOs;
-using BuildingBlocksClient.Models;
 using static BuildingBlocksClient.DTOs.ServiceResponses;
 
 namespace BuildingBlocksClient.Interfaces
