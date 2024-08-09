@@ -23,7 +23,8 @@ namespace Identity.API.Services
                 Nickname = userDTO.Nickname,
                 Email = userDTO.Email,
                 PasswordHash = userDTO.Password,
-                UserName = userDTO.Email
+                UserName = userDTO.Email,
+                Tenant = userDTO.Tenant,
             };
             var user = await _userManager.FindByEmailAsync(newUser.Email);
             if (user is not null) return new GeneralResponse(false, "User registered already");
@@ -64,7 +65,7 @@ namespace Identity.API.Services
                 return new LoginResponse(false, null!, "Invalid email/password");
 
             var getUserRole = await _userManager.GetRolesAsync(getUser);
-            var userSession = new UserSession(getUser.Id, getUser.Nickname, getUser.Email, getUserRole.First());
+            var userSession = new UserSession(getUser.Id, getUser.Nickname, getUser.Email, getUserRole.First(), getUser.Tenant);
             string token = GenerateToken(userSession);
             return new LoginResponse(true, "Login completed", token!);
         }
@@ -78,7 +79,8 @@ namespace Identity.API.Services
                 new Claim(ClaimTypes.NameIdentifier, user.Id!),
                 new Claim(ClaimTypes.Name, user.Nickname!),
                 new Claim(ClaimTypes.Email, user.Email!),
-                new Claim(ClaimTypes.Role, user.Role!)
+                new Claim(ClaimTypes.Role, user.Role!),
+                new Claim("tenant", user.Tenant!),
             };
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],

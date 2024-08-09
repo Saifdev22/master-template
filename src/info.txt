@@ -1,17 +1,9 @@
-Add-Migration -Name AppCreate2 -OutputDir Data/Migrations -Context ApplicationDbContext -Project Starter.Infrastructure -StartupProject Starter.API
+Add-Migration -Name InitialCreate -OutputDir Data/Migrations -Context ApplicationDbContext -Project Starter.Infrastructure -StartupProject Starter.API
 Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Context ApplicationDbContext
 
-Add-Migration -Name InitialCreate123 -OutputDir Multitenancy/Migrations -Context TenantDbContext -Project Starter.Infrastructure -StartupProject Starter.API
+Add-Migration -Name InitialCreateTenant -OutputDir Multitenancy/Migrations -Context TenantDbContext -Project Starter.Infrastructure -StartupProject Starter.API
 Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Context TenantDbContext
 
+Add-Migration -Name InitialCreate -Project Identity.API -StartupProject Identity.API -OutputDir Data/Migrations -Context AppDbContext 
+Update-Database -Project Identity.API -StartupProject Identity.API -Context AppDbContext 
 
-
-
-
-
-
-
-DDD
-
-Domain Service/Factory
-Specification Pattern

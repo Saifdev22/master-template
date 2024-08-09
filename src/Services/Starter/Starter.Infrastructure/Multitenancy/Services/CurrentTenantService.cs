@@ -9,8 +9,8 @@ public class CurrentTenantService(TenantDbContext _context) : ICurrentTenantServ
 
     public async Task<bool> SetTenant(string tenant)
     {
+        var tenantInfo = await _context.Tenants.Where(x => x.Id == tenant).FirstOrDefaultAsync();
 
-        var tenantInfo = await _context.Tenants.Where(x => x.Id == tenant).FirstOrDefaultAsync(); // check if tenant exists
         if (tenantInfo != null)
         {
             TenantId = tenant;
@@ -19,7 +19,7 @@ public class CurrentTenantService(TenantDbContext _context) : ICurrentTenantServ
         }
         else
         {
-            throw new Exception("Tenant invalid");
+            throw new Exception("Tenant Invalid!");
         }
 
     }

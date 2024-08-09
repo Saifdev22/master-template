@@ -5,7 +5,7 @@
 namespace Starter.Infrastructure.Multitenancy.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate123 : Migration
+    public partial class InitialCreateTenant : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

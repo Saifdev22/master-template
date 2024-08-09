@@ -1,15 +1,11 @@
 using BuildingBlocksClient.Interfaces;
 using Identity.API.Data;
-using Identity.API.Middlewares;
+using Identity.API.Extensions;
 using Identity.API.Services;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +14,7 @@ builder.Services.AddControllers();
 
 //Database Connection
 builder.Services.AddDbContext<AppDbContext>(options =>
-         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ??
+         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
          throw new InvalidOperationException("Issue With Connection String!")));
 
 //Identity Manager
@@ -28,25 +24,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddRoles<IdentityRole>();
 
 // JWT
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateIssuerSigningKey = true,
-        ValidateLifetime = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!))
-    };
-});
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 //Cors
 builder.Services.AddCors(options =>
@@ -70,8 +48,9 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+//Middleware & Services
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddTransient<CustomAuthorizationMiddleware>();
+//builder.Services.AddTransient<CustomAuthorizationMiddleware>();
 
 var app = builder.Build();
 

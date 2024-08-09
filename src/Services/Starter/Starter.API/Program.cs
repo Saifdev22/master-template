@@ -1,6 +1,4 @@
 using Serilog;
-using Starter.API;
-using Starter.API.Middleware;
 using Starter.Application;
 using Starter.Infrastructure;
 
@@ -12,21 +10,20 @@ builder.Services.AddControllers();
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-//For Minimal APIs
+//Minimal APIs
 builder.Services.AddEndpointsApiExplorer();
-
-//Swagger
-builder.Services.AddSwaggerGen();
 
 //Exception Handler
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-//Libraries
-builder.Services
-    .AddApiServices(builder.Configuration)
-    .AddApplicationServices(builder.Configuration)
-    .AddInfrastructureServices(builder.Configuration);
-
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.AddInfrastructureServices();
+builder.Services.AddApplicationServices(builder.Configuration);
+//C# Libraries
+//builder.
+//    //.AddApiServices(builder.Configuration)
+//    .AddInfrastructureServices(builder.Configuration)
+//    .AddApplicationServices(builder.Configuration);
 // Cors
 builder.Services.AddCors(options =>
 {
@@ -58,23 +55,19 @@ var app = builder.Build();
 //Exception Handler
 app.UseExceptionHandler(_ => { });
 
-//Swagger
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseHttpsRedirection();
 
+//Cors
 app.UseCors("CorsPolicy");
 
 //Serilog
 app.UseSerilogRequestLogging();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<TenantResolverMiddleware>();
+app.UseInfrastructureServices();
+
 //Only allow requests from the gateway.
 //app.UseMiddleware<RestrictAccessMiddleware>();
 

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Starter.Application.Categories.Commands.CreateCategory;
 using Starter.Application.Categories.Queries.GetAllCatagories;
@@ -17,6 +18,7 @@ namespace Starter.API.Controllers
             return Ok(await _sender.Send(request));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<GetCategoriesResult>> GetAll([FromQuery] GetAllCategoriesQuery query)
         {

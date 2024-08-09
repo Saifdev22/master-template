@@ -12,8 +12,8 @@ using Starter.Infrastructure.Data;
 namespace Starter.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240804142029_AppCreate")]
-    partial class AppCreate
+    [Migration("20240805021557_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,11 +76,17 @@ namespace Starter.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("CostPrice")
+                        .HasColumnType("float");
+
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
@@ -96,6 +102,9 @@ namespace Starter.Infrastructure.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasMaxLength(5)
                         .HasColumnType("int");
+
+                    b.Property<double>("SellingPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

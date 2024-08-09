@@ -11,6 +11,7 @@ namespace Identity.API.Controllers
         public async Task<IActionResult> GetAllRoles()
         {
             var response = _roleManager.Roles;
+            await Task.Delay(50);
             return Ok(response);
         }
 

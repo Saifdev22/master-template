@@ -5,6 +5,7 @@ namespace BuildingBlocksClient.DTOs
     public class RegisterDTO
     {
         public string? Id { get; set; } = string.Empty;
+
         [Required]
         public string Nickname { get; set; } = string.Empty;
 
@@ -21,5 +22,7 @@ namespace BuildingBlocksClient.DTOs
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        public string Tenant { get; set; } = string.Empty;
     }
 }

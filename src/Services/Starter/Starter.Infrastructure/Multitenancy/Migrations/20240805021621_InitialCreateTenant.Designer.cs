@@ -11,8 +11,8 @@ using Starter.Infrastructure.Multitenancy;
 namespace Starter.Infrastructure.Multitenancy.Migrations
 {
     [DbContext(typeof(TenantDbContext))]
-    [Migration("20240804141033_InitialCreate123")]
-    partial class InitialCreate123
+    [Migration("20240805021621_InitialCreateTenant")]
+    partial class InitialCreateTenant
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
