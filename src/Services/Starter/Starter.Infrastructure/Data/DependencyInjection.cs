@@ -15,10 +15,14 @@ namespace Starter.Infrastructure.Data
         internal static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             ArgumentNullException.ThrowIfNull(services);
+            //services.AddHttpContextAccessor();
             var connectionString = configuration.GetConnectionString("DefaultConnection");
 
+            //Services
             services.AddScoped<ICurrentTenantService, CurrentTenantService>();
+            services.AddTransient<ITenantService, TenantService>();
 
+            //Data Db Context
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
@@ -31,15 +35,19 @@ namespace Starter.Infrastructure.Data
                 });
             });
 
+            //Tenant Db Context
             services.AddDbContext<TenantDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
             });
 
+            //Database Migration
             services.AddAndMigrateTenantDatabases(configuration);
-            services.AddTransient<IApplicationDbContext, ApplicationDbContext>();
-            services.AddTransient<ITenantService, TenantService>();
 
+            //Db Context Interface
+            services.AddTransient<IApplicationDbContext, ApplicationDbContext>();
+
+            //EF Core Interceptors
             services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
             services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 

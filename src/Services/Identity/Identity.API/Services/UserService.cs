@@ -1,18 +1,15 @@
 ﻿using BuildingBlocksClient.DTOs;
 using BuildingBlocksClient.Interfaces;
 using Identity.API.Data;
+using Identity.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using static BuildingBlocksClient.DTOs.ServiceResponses;
 
 namespace Identity.API.Services
 {
     public class UserService(UserManager<ApplicationUser> _userManager,
                              RoleManager<IdentityRole> _roleManager,
-                             IConfiguration _config) : IUserService
+                             ITokenService _tokenService) : IUserService
     {
 
         public async Task<GeneralResponse> CreateAccount(RegisterDTO userDTO)
@@ -65,31 +62,11 @@ namespace Identity.API.Services
                 return new LoginResponse(false, null!, "Invalid email/password");
 
             var getUserRole = await _userManager.GetRolesAsync(getUser);
-            var userSession = new UserSession(getUser.Id, getUser.Nickname, getUser.Email, getUserRole.First(), getUser.Tenant);
-            string token = GenerateToken(userSession);
+            var userSession = new CustomUserClaim(getUser.Id, getUser.Nickname!, getUser.Email!, getUserRole.First(), getUser.Tenant!);
+            string token = _tokenService.CreateToken(userSession);
             return new LoginResponse(true, "Login completed", token!);
         }
 
-        private string GenerateToken(UserSession user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var userClaims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id!),
-                new Claim(ClaimTypes.Name, user.Nickname!),
-                new Claim(ClaimTypes.Email, user.Email!),
-                new Claim(ClaimTypes.Role, user.Role!),
-                new Claim("tenant", user.Tenant!),
-            };
-            var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
-                claims: userClaims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: credentials
-                );
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+
     }
 }

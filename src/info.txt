@@ -7,3 +7,6 @@ Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Con
 Add-Migration -Name InitialCreate -Project Identity.API -StartupProject Identity.API -OutputDir Data/Migrations -Context AppDbContext 
 Update-Database -Project Identity.API -StartupProject Identity.API -Context AppDbContext 
 
+
+Token Service
+

@@ -37,6 +37,22 @@ namespace Starter.Infrastructure.Data
             }
         }
 
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<IMustHaveTenant>().ToList())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                    case EntityState.Modified:
+                        entry.Entity.TenantId = CurrentTenantId!;
+                        break;
+                }
+            }
+            var result = await base.SaveChangesAsync(cancellationToken);
+            return result;
+        }
+
         //Save tenant Id to any entity that implemented the IMustHaveTenant interface.
         public override int SaveChanges()
         {

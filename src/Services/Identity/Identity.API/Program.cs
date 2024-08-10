@@ -2,6 +2,7 @@ using BuildingBlocksClient.Interfaces;
 using Identity.API.Data;
 using Identity.API.Extensions;
 using Identity.API.Services;
+using Identity.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -25,6 +26,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 // JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 //Cors
 builder.Services.AddCors(options =>

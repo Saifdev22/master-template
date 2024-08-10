@@ -55,7 +55,7 @@ namespace Starter.Infrastructure.Multitenancy.Services
 
             Tenant tenant = new() // create a new tenant entity
             {
-                Id = request.Id!,
+                Id = request.Id,
                 Name = request.Name,
                 ConnectionString = newConnectionString,
             };

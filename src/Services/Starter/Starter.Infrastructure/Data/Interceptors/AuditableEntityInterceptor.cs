@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Starter.Application.Identity.Users.Abstractions;
 
 namespace Starter.Infrastructure.Data.Interceptors;
-public class AuditableEntityInterceptor : SaveChangesInterceptor
+public class AuditableEntityInterceptor(ICurrentUserService _currentUserService) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -25,13 +26,13 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Added)
             {
-                entry.Entity.CreatedBy = "saif";
+                entry.Entity.CreatedBy = _currentUserService.Name;
                 entry.Entity.CreatedAt = DateTime.Now;
             }
 
             if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
             {
-                entry.Entity.LastModifiedBy = "saif";
+                entry.Entity.LastModifiedBy = _currentUserService.Name;
                 entry.Entity.LastModified = DateTime.Now;
             }
 

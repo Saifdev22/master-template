@@ -1,6 +1,9 @@
+using Microsoft.OpenApi.Models;
 using Serilog;
+using Starter.API;
 using Starter.Application;
 using Starter.Infrastructure;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,27 +19,33 @@ builder.Services.AddEndpointsApiExplorer();
 //Exception Handler
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddApplicationServices(builder.Configuration);
+//C# Libraries
+builder.Services.AddApiServices(builder.Configuration);
 builder.AddInfrastructureServices();
 builder.Services.AddApplicationServices(builder.Configuration);
-//C# Libraries
-//builder.
-//    //.AddApiServices(builder.Configuration)
-//    .AddInfrastructureServices(builder.Configuration)
-//    .AddApplicationServices(builder.Configuration);
+
 // Cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
         builder => builder
-        //.WithOrigins("http://client.saifkhan.co.za", "https://localhost:7100")
-        //.AllowCredentials()
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader());
 
 });
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 
 //Http Client
 builder.Services.AddHttpClient("testapi", (serviceProvider, client) =>
@@ -51,6 +60,13 @@ builder.Services.AddHttpClient("testapi", (serviceProvider, client) =>
 });
 
 var app = builder.Build();
+
+//Swagger
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 //Exception Handler
 app.UseExceptionHandler(_ => { });

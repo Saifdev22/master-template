@@ -15,7 +15,8 @@ namespace Starter.API.Controllers
         [HttpPost(Name = "addCategory")]
         public async Task<ActionResult<Guid>> Add(CreateCategoryCommand request)
         {
-            return Ok(await _sender.Send(request));
+            var response = await _sender.Send(request);
+            return Ok(response);
         }
 
         [Authorize]
