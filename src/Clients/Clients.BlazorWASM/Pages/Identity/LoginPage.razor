@@ -3,11 +3,11 @@
 @layout AuthLayout
 
 <div class="login-box">
+    <div class="auth-logo">
+        <img src="/images/saif-logo.png" alt="Auth Logo" />
+    </div>
     <div class="login-header">
         <header>Login</header>
-    </div>
-    <div class="auth-logo">
-        <img src="/images/auth-logo.png" alt="Auth Logo" />
     </div>
     <EditForm Enhance Model="User" OnValidSubmit="HandleLogin">
         <DataAnnotationsValidator />
@@ -206,7 +206,7 @@
     {
         ShowLoadingButton = true;
 
-        var result = await _userServiceClient.LoginAccount(User);
+        var result = await _accountService.LoginAccount(User);
         if (result.Flag)
         {
             string customMessage = $"{result.Message}{Environment.NewLine}{result.Token}";

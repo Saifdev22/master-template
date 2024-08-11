@@ -6,7 +6,7 @@ namespace Clients.BlazorWASM.Helpers
 {
     public class CustomHttpDelegate(CustomHttpClient _httpClient,
         LocalStorageService _localstorageService,
-        IUserService _userServiceClient) : DelegatingHandler
+        IAccountService _accountService) : DelegatingHandler
     {
 
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

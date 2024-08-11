@@ -212,7 +212,7 @@
     {
         ShowLoadingButton = true;
 
-        var result = await _userServiceClient.CreateAccount(User);
+        var result = await _accountService.CreateAccount(User);
         if (result.Flag)
         {
             await _js.InvokeVoidAsync("alert", "Sucess");

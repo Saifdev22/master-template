@@ -1,12 +1,10 @@
-﻿using BuildingBlocksClient.DTOs;
-using BuildingBlocksClient.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers
 {
     [Route("identity/[controller]")]
     [ApiController]
-    public class AccountController(IUserService userAccount) : ControllerBase
+    public class AccountController(IAccountService userAccount) : ControllerBase
     {
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO userDTO)

@@ -1,8 +1,6 @@
-using BuildingBlocksClient.Interfaces;
 using Identity.API.Data;
 using Identity.API.Extensions;
 using Identity.API.Services;
-using Identity.API.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -19,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
          throw new InvalidOperationException("Issue With Connection String!")));
 
 //Identity Manager
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityAppUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddSignInManager()
     .AddRoles<IdentityRole>();
@@ -51,6 +49,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 //Middleware & Services
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddTransient<CustomAuthorizationMiddleware>();
 

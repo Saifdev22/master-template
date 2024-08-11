@@ -5,7 +5,9 @@ namespace BuildingBlocksClient.Interfaces
 {
     public interface IUserService
     {
-        Task<GeneralResponse> CreateAccount(RegisterDTO userDTO);
-        Task<LoginResponse> LoginAccount(LoginDTO loginDTO);
+        Task<List<GetUserDTO>> GetAllUsers();
+        Task<GetUserDTO> GetUserById(string userId);
+        Task<GeneralResponse> DeleteUserById(string userId);
+        Task<GeneralResponse> UpdateUser(GetUserDTO userDTO);
     }
 }

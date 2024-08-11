@@ -1,5 +1,4 @@
-﻿@using Clients.BlazorWASM.Layout
-@using Microsoft.AspNetCore.Components.Authorization
+﻿@using Microsoft.AspNetCore.Components.Authorization
 
 <CascadingAuthenticationState>
 <Router AppAssembly="@typeof(App).Assembly">
@@ -10,7 +9,7 @@
                     @if(context.User?.Identity?.IsAuthenticated == false)
                     {
                         <Clients.BlazorWASM.Pages.Identity.LoginPage />
-                        //<h3>App.Razor</h3>
+                       @*  <h3>App.Razor</h3> *@
                     }
                     else
                     {

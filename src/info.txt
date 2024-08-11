@@ -8,5 +8,19 @@ Add-Migration -Name InitialCreate -Project Identity.API -StartupProject Identity
 Update-Database -Project Identity.API -StartupProject Identity.API -Context AppDbContext 
 
 
-Token Service
 
+
+
+Creating Endpoint (Server)
+
+1. Add Service Interface.
+2. Implement Service Interface.
+3. Build Service Class.
+4. Build Contoller With Service.
+5. Test Controller Endpoint With Postman.
+
+Using Endpoint (Client)
+
+1. Implement Service Interface.
+2. Build Service Class.
+3. Test Service In Blazor Pages.

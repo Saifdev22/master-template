@@ -3,7 +3,7 @@ using Starter.Application.Identity.Users.Abstractions;
 using Starter.Infrastructure.Identity.Extensions;
 using System.Security.Claims;
 
-namespace Starter.Infrastructure.Identity.Users
+namespace Starter.Infrastructure.Identity.Users.Services
 {
     public class CurrentUserService : ICurrentUserService, ICurrentUserInitializer
     {

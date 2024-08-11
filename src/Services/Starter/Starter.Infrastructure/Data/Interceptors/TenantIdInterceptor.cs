@@ -8,7 +8,5 @@ namespace Starter.Infrastructure.Data.Interceptors
         {
             return base.SavingChanges(eventData, result);
         }
-
-        public override
     }
 }

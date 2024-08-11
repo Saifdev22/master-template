@@ -1,72 +1,63 @@
-﻿using BuildingBlocksClient.DTOs;
-using BuildingBlocksClient.Interfaces;
-using Identity.API.Data;
-using Identity.API.Services.Interfaces;
+﻿using Identity.API.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using static BuildingBlocksClient.DTOs.ServiceResponses;
 
 namespace Identity.API.Services
 {
-    public class UserService(UserManager<ApplicationUser> _userManager,
-                             RoleManager<IdentityRole> _roleManager,
-                             ITokenService _tokenService) : IUserService
+    public class UserService(UserManager<IdentityAppUser> _userManager) : IUserService
     {
-
-        public async Task<GeneralResponse> CreateAccount(RegisterDTO userDTO)
+        public async Task<GeneralResponse> DeleteUserById(string userId)
         {
-            if (userDTO is null) return new GeneralResponse(false, "Model is empty");
-            var newUser = new ApplicationUser()
+            var user = await _userManager.FindByIdAsync(userId);
+            var result = await _userManager.DeleteAsync(user!);
+
+            return result.Succeeded ? new GeneralResponse(true, "Success")
+                : new GeneralResponse(false, "Error");
+        }
+
+        public async Task<List<GetUserDTO>> GetAllUsers()
+        {
+            var user = await _userManager.Users.ToListAsync();
+
+            var categoryDtos = user.Select(c => new GetUserDTO
             {
-                Nickname = userDTO.Nickname,
-                Email = userDTO.Email,
-                PasswordHash = userDTO.Password,
-                UserName = userDTO.Email,
-                Tenant = userDTO.Tenant,
+                Id = c.Id,
+                Email = c.Email!,
+                Nickname = c.Nickname!,
+                Tenant = c.Tenant!
+            }).ToList();
+
+            return categoryDtos;
+        }
+
+        public async Task<GetUserDTO> GetUserById(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            GetUserDTO getUserDto = new GetUserDTO
+            {
+                Id = user!.Id,
+                Nickname = user.Nickname!,
+                Email = user.Email!,
+                Tenant = user.Tenant!,
             };
-            var user = await _userManager.FindByEmailAsync(newUser.Email);
-            if (user is not null) return new GeneralResponse(false, "User registered already");
 
-            var createUser = await _userManager.CreateAsync(newUser!, userDTO.Password);
-            if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
-
-            //Assign Default Role : Admin to first registrar; rest is user
-            var checkAdmin = await _roleManager.FindByNameAsync("Admin");
-            if (checkAdmin is null)
-            {
-                await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
-                await _userManager.AddToRoleAsync(newUser, "Admin");
-                return new GeneralResponse(true, "Account Created");
-            }
-            else
-            {
-                var checkUser = await _roleManager.FindByNameAsync("User");
-                if (checkUser is null)
-                    await _roleManager.CreateAsync(new IdentityRole() { Name = "User" });
-
-                await _userManager.AddToRoleAsync(newUser, "User");
-                return new GeneralResponse(true, "Account Created");
-            }
+            return getUserDto;
         }
 
-        public async Task<LoginResponse> LoginAccount(LoginDTO loginDTO)
+        public async Task<GeneralResponse> UpdateUser(GetUserDTO userDTO)
         {
-            if (loginDTO == null)
-                return new LoginResponse(false, null!, "Login container is empty");
+            var user = await _userManager.FindByIdAsync(userDTO.Id);
 
-            var getUser = await _userManager.FindByEmailAsync(loginDTO.Email);
-            if (getUser is null)
-                return new LoginResponse(false, null!, "User not found");
+            user!.Nickname = userDTO.Nickname;
+            user.Email = userDTO.Email;
+            user.Tenant = userDTO.Tenant;
 
-            bool checkUserPasswords = await _userManager.CheckPasswordAsync(getUser, loginDTO.Password);
-            if (!checkUserPasswords)
-                return new LoginResponse(false, null!, "Invalid email/password");
+            var result = await _userManager.UpdateAsync(user);
 
-            var getUserRole = await _userManager.GetRolesAsync(getUser);
-            var userSession = new CustomUserClaim(getUser.Id, getUser.Nickname!, getUser.Email!, getUserRole.First(), getUser.Tenant!);
-            string token = _tokenService.CreateToken(userSession);
-            return new LoginResponse(true, "Login completed", token!);
+            return result.Succeeded ? new GeneralResponse(true, "Success")
+                : new GeneralResponse(false, "Error");
         }
-
-
     }
 }

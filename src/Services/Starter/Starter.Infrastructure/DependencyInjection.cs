@@ -14,6 +14,7 @@ namespace Starter.Infrastructure
 
             return builder;
         }
+
         public static WebApplication UseInfrastructureServices(this WebApplication app)
         {
             app.UseMiddleware<UserMiddleware>();

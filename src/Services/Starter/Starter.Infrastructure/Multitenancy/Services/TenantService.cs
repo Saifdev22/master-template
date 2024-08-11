@@ -60,8 +60,8 @@ namespace Starter.Infrastructure.Multitenancy.Services
                 ConnectionString = newConnectionString,
             };
 
-            _context.Add(tenant);
-            _context.SaveChanges();
+            _context.AddAsync(tenant);
+            _context.SaveChangesAsync();
 
             return tenant;
         }

@@ -1,6 +1,6 @@
 ﻿using BuildingBlocksClient.DTOs;
 
-namespace Identity.API.Services.Interfaces
+namespace BuildingBlocksClient.Interfaces
 {
     public record TokenResponse(string Token, string RefreshToken, DateTime RefreshTokenExpiryTime);
     public record RefreshTokenRequest(string Token, string RefreshToken);
