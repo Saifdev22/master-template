@@ -1,6 +1,8 @@
-﻿using Identity.API.Data;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Identity.Interfaces;
+using Identity.API.Data;
 using Microsoft.AspNetCore.Identity;
-using static BuildingBlocksClient.DTOs.ServiceResponses;
+using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
 namespace Identity.API.Services
 {
@@ -12,16 +14,24 @@ namespace Identity.API.Services
         public async Task<GeneralResponse> CreateAccount(RegisterDTO userDTO)
         {
             if (userDTO is null) return new GeneralResponse(false, "Model is empty");
+
             var newUser = new IdentityAppUser()
             {
-                Nickname = userDTO.Nickname,
+                TenantId = userDTO.TenantId,
+                RoleId = userDTO.RoleId,
+
+                UserName = userDTO.Username,
                 Email = userDTO.Email,
                 PasswordHash = userDTO.Password,
-                UserName = userDTO.Email,
-                Tenant = userDTO.Tenant,
+
+                Gender = userDTO.Gender,
+                DateOfBirth = userDTO.DateOfBirth,
+                ProfileImage = userDTO.ProfileImage,
+                Notes = userDTO.Notes,
             };
+
             var user = await _userManager.FindByEmailAsync(newUser.Email);
-            if (user is not null) return new GeneralResponse(false, "User registered already");
+            if (user is not null) return new GeneralResponse(false, "User registered exists.");
 
             var createUser = await _userManager.CreateAsync(newUser!, userDTO.Password);
             if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
@@ -47,20 +57,18 @@ namespace Identity.API.Services
 
         public async Task<LoginResponse> LoginAccount(LoginDTO loginDTO)
         {
-            if (loginDTO == null)
-                return new LoginResponse(false, null!, "Login container is empty");
+            if (loginDTO == null) return new LoginResponse(false, null!, "Login container is empty.");
 
             var getUser = await _userManager.FindByEmailAsync(loginDTO.Email);
-            if (getUser is null)
-                return new LoginResponse(false, null!, "User not found");
+            if (getUser is null) return new LoginResponse(false, null!, "User not found.");
 
             bool checkUserPasswords = await _userManager.CheckPasswordAsync(getUser, loginDTO.Password);
-            if (!checkUserPasswords)
-                return new LoginResponse(false, null!, "Invalid email/password");
+            if (!checkUserPasswords) return new LoginResponse(false, null!, "Invalid email/password.");
 
             var getUserRole = await _userManager.GetRolesAsync(getUser);
-            var userSession = new CustomUserClaim(getUser.Id, getUser.Nickname!, getUser.Email!, getUserRole.First(), getUser.Tenant!);
+            var userSession = new CustomUserClaim(getUser.Id, getUser.UserName!, getUser.Email!, getUserRole.First(), getUser.TenantId!);
             string token = _tokenService.CreateToken(userSession);
+
             return new LoginResponse(true, "Login completed", token!);
         }
 

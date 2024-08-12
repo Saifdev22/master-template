@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocksClient.DTOs
+﻿namespace BuildingBlocksClient.Starter.DTOs
 
 {
     public record CategoryDto(string CategoryCode, string CategoryDesc, bool IsActive);

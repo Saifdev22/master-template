@@ -1,4 +1,5 @@
 ﻿@page "/user-list"
+@attribute [Authorize(Roles = "Admin")]
 
 <div class="row">
     <div class="col-12">
@@ -25,7 +26,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Id</th>
-                                                        <th>Nickname</th>
+                                                        <th>Username</th>
                                                         <th>Email</th>
                                                         <th>Tenant</th>
                                                         <th>Edit</th>
@@ -37,7 +38,7 @@
                                                     {
                                                         <tr>
                                                             <td>@user.Id</td>
-                                                            <td>@user.Nickname</td>
+                                                            <td>@user.Username</td>
                                                             <td>@user.Email</td>
                                                             <td>@user.Tenant</td>
                                                             <td>

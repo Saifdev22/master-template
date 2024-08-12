@@ -1,5 +1,4 @@
-﻿using BuildingBlocksClient.DTOs;
-using Microsoft.AspNetCore.Components.Authorization;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -49,7 +48,7 @@ namespace Clients.BlazorWASM.Helpers
                 new List<Claim>
                 {
                     new(ClaimTypes.NameIdentifier, model.Id!),
-                    new(ClaimTypes.Name, model.Nickname!),
+                    new(ClaimTypes.Name, model.Username!),
                     new(ClaimTypes.Email, model.Email!),
                     new(ClaimTypes.Role, model.Role!),
                 }, "JwtAuth"));

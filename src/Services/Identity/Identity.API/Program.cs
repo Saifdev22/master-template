@@ -1,3 +1,4 @@
+using BuildingBlocksClient.Identity.Interfaces;
 using Identity.API.Data;
 using Identity.API.Extensions;
 using Identity.API.Services;

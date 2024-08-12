@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Identity.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers
 {

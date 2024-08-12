@@ -1,0 +1,18 @@
+﻿namespace BuildingBlocksClient.Identity.DTOs
+{
+    public class GetUserDTO
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public string Tenant { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string TenantId { get; set; } = default!;
+        public int RoleId { get; set; }
+        public string Gender { get; set; } = default!;
+        public DateOnly DateOfBirth { get; set; }
+        public byte[] ProfileImage { get; set; } = default!;
+        public string Notes { get; set; } = default!;
+    }
+
+    public record CustomUserClaim(string Id = null!, string Username = null!, string Email = null!, string Role = null!, string Tenant = null!);
+}

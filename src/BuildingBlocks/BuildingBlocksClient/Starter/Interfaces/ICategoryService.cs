@@ -1,7 +1,7 @@
-﻿using BuildingBlocksClient.DTOs;
-using BuildingBlocksClient.Pagination;
+﻿using BuildingBlocksClient.Pagination;
+using BuildingBlocksClient.Starter.DTOs;
 
-namespace BuildingBlocksClient.Interfaces
+namespace BuildingBlocksClient.Starter.Interfaces
 {
     public interface ICategoryService
     {

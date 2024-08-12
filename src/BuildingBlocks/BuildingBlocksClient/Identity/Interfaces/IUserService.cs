@@ -1,7 +1,7 @@
-﻿using BuildingBlocksClient.DTOs;
-using static BuildingBlocksClient.DTOs.ServiceResponses;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
-namespace BuildingBlocksClient.Interfaces
+namespace BuildingBlocksClient.Identity.Interfaces
 {
     public interface IUserService
     {

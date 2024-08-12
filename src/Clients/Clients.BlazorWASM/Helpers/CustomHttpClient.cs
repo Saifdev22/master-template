@@ -1,6 +1,4 @@
-﻿using BuildingBlocksClient.DTOs;
-
-namespace Clients.BlazorWASM.Helpers
+﻿namespace Clients.BlazorWASM.Helpers
 {
     public class CustomHttpClient(IHttpClientFactory httpClientFactory, LocalStorageService localStorageService)
     {

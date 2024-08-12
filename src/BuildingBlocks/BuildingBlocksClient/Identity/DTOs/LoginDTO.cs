@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BuildingBlocksClient.DTOs
+namespace BuildingBlocksClient.Identity.DTOs
 {
     public class LoginDTO
     {

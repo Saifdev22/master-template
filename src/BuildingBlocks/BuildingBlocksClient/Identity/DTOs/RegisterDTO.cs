@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BuildingBlocksClient.DTOs
+namespace BuildingBlocksClient.Identity.DTOs
 {
     public class RegisterDTO
     {
         public string? Id { get; set; } = string.Empty;
 
         [Required]
-        public string Nickname { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
@@ -23,6 +23,11 @@ namespace BuildingBlocksClient.DTOs
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; } = string.Empty;
 
-        public string Tenant { get; set; } = string.Empty;
+        public string TenantId { get; set; } = default!;
+        public int RoleId { get; set; }
+        public string Gender { get; set; } = default!;
+        public DateOnly DateOfBirth { get; set; }
+        public byte[] ProfileImage { get; set; } = default!;
+        public string Notes { get; set; } = string.Empty;
     }
 }

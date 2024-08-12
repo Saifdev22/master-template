@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Identity.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers
 {
@@ -9,15 +11,13 @@ namespace Identity.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO userDTO)
         {
-            var response = await userAccount.CreateAccount(userDTO);
-            return Ok(response);
+            return Ok(await userAccount.CreateAccount(userDTO));
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            var response = await userAccount.LoginAccount(loginDTO);
-            return Ok(response);
+            return Ok(await userAccount.LoginAccount(loginDTO));
         }
     }
 }

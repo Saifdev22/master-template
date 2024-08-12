@@ -1,7 +1,9 @@
-﻿using Identity.API.Data;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Identity.Interfaces;
+using Identity.API.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static BuildingBlocksClient.DTOs.ServiceResponses;
+using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
 namespace Identity.API.Services
 {
@@ -24,8 +26,8 @@ namespace Identity.API.Services
             {
                 Id = c.Id,
                 Email = c.Email!,
-                Nickname = c.Nickname!,
-                Tenant = c.Tenant!
+                Username = c.UserName!,
+                Tenant = c.TenantId!
             }).ToList();
 
             return categoryDtos;
@@ -38,9 +40,9 @@ namespace Identity.API.Services
             GetUserDTO getUserDto = new GetUserDTO
             {
                 Id = user!.Id,
-                Nickname = user.Nickname!,
+                Username = user.UserName!,
                 Email = user.Email!,
-                Tenant = user.Tenant!,
+                Tenant = user.TenantId!,
             };
 
             return getUserDto;
@@ -50,9 +52,9 @@ namespace Identity.API.Services
         {
             var user = await _userManager.FindByIdAsync(userDTO.Id);
 
-            user!.Nickname = userDTO.Nickname;
+            user!.UserName = userDTO.Username;
             user.Email = userDTO.Email;
-            user.Tenant = userDTO.Tenant;
+            user.TenantId = userDTO.Tenant;
 
             var result = await _userManager.UpdateAsync(user);
 

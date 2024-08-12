@@ -15,9 +15,9 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Nickname</label>
-                                        <InputText for="Nickname" class="form-control" @bind-Value="@registerDTO.Nickname" />
-                                        <ValidationMessage For="()=>registerDTO.Nickname" />
+                                        <label class="control-label">Username</label>
+                                        <InputText for="Username" class="form-control" @bind-Value="@registerDTO.Username" />
+                                        <ValidationMessage For="()=>registerDTO.Username" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -30,8 +30,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Tenant</label>
-                                        <InputText for="Tenant" class="form-control" @bind-Value="@registerDTO.Tenant" />
-                                        <ValidationMessage For="()=>registerDTO.Tenant" />
+                                        <InputText for="Tenant" class="form-control" @bind-Value="@registerDTO.TenantId" />
+                                        <ValidationMessage For="()=>registerDTO.TenantId" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">

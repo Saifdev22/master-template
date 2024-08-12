@@ -1,12 +1,8 @@
 using Blazored.LocalStorage;
-using BuildingBlocksClient.Interfaces;
 using Clients.BlazorWASM;
-using Clients.BlazorWASM.Helpers;
-using Clients.BlazorWASM.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -28,7 +24,5 @@ builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStat
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ITestService, TestService>();
-builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

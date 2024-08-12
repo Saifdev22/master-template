@@ -1,4 +1,4 @@
-﻿namespace BuildingBlocksClient.DTOs
+﻿namespace BuildingBlocksClient.Identity.DTOs
 {
     public class TokenSession
     {

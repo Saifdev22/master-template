@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BuildingBlocksClient.Models
+namespace BuildingBlocksClient.Starter.DTOs
 {
     public class Product
     {

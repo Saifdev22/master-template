@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Starter.Application.Categories.Commands.CreateCategory;
 using Starter.Application.Categories.Queries.GetAllCatagories;
@@ -12,14 +11,12 @@ namespace Starter.API.Controllers
     public class CategoryController(ISender _sender) : ControllerBase
     {
 
-        [HttpPost(Name = "addCategory")]
+        [HttpPost]
         public async Task<ActionResult<Guid>> Add(CreateCategoryCommand request)
         {
-            var response = await _sender.Send(request);
-            return Ok(response);
+            return Ok(await _sender.Send(request));
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<GetCategoriesResult>> GetAll([FromQuery] GetAllCategoriesQuery query)
         {
