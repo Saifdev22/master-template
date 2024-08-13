@@ -23,6 +23,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlocks", "BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj", "{4297D883-3C24-4AAB-9E3B-EBA4767C775E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{34636A35-78DA-48CB-B147-A9E874DA98B5}"
+	ProjectSection(SolutionItems) = preProject
+		BlazorTasks.txt = BlazorTasks.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.BlazorWASM", "Clients\Clients.BlazorWASM\Clients.BlazorWASM.csproj", "{30DC4985-18F9-49F8-AC99-36A3EB7FA164}"
 EndProject

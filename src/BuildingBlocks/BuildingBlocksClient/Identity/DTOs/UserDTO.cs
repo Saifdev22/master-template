@@ -1,4 +1,6 @@
-﻿namespace BuildingBlocksClient.Identity.DTOs
+﻿using Microsoft.AspNetCore.Http;
+
+namespace BuildingBlocksClient.Identity.DTOs
 {
     public class GetUserDTO
     {
@@ -11,6 +13,21 @@
         public string Gender { get; set; } = default!;
         public DateOnly DateOfBirth { get; set; }
         public byte[] ProfileImage { get; set; } = default!;
+        public string Notes { get; set; } = default!;
+    }
+
+    public class CreateUserDTO
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        public string TenantId { get; set; } = default!;
+        public int RoleId { get; set; }
+        public string Gender { get; set; } = default!;
+        public DateOnly DateOfBirth { get; set; }
+        public IFormFile File { get; set; } = default!;
         public string Notes { get; set; } = default!;
     }
 

@@ -9,6 +9,36 @@ namespace Identity.API.Services
 {
     public class UserService(UserManager<IdentityAppUser> _userManager) : IUserService
     {
+        public async Task<GeneralResponse> CreateUser(CreateUserDTO userDTO)
+        {
+            if (userDTO is null) return new GeneralResponse(false, "Model is empty.");
+
+            var newUser = new IdentityAppUser()
+            {
+                UserName = userDTO.Username,
+                Email = userDTO.Email,
+                PasswordHash = userDTO.Password,
+                PhoneNumber = userDTO.PhoneNumber,
+
+                TenantId = userDTO.TenantId,
+                RoleId = userDTO.RoleId,
+                Gender = userDTO.Gender,
+                DateOfBirth = userDTO.DateOfBirth,
+                Notes = userDTO.Notes,
+            };
+
+            var user = await _userManager.FindByEmailAsync(newUser.Email);
+            if (user is not null) return new GeneralResponse(false, "Account already exists.");
+
+            var createUser = await _userManager.CreateAsync(newUser, userDTO.Password);
+            if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured... please try again.");
+
+            //Assign Role
+            await _userManager.AddToRoleAsync(newUser, "Admin");
+            return new GeneralResponse(true, "Account Created");
+
+        }
+
         public async Task<GeneralResponse> DeleteUserById(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

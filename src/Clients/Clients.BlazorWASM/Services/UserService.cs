@@ -40,7 +40,10 @@ namespace Clients.BlazorWASM.Services
             return result!;
         }
 
-
+        public Task<GeneralResponse> CreateUser(CreateUserDTO user)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

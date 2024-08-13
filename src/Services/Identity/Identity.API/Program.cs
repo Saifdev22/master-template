@@ -2,6 +2,7 @@ using BuildingBlocksClient.Identity.Interfaces;
 using Identity.API.Data;
 using Identity.API.Extensions;
 using Identity.API.Services;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -35,6 +36,16 @@ builder.Services.AddCors(options =>
         builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
+
+//File Upload
+//builder.Services.Configure<FormOptions>(x =>
+//{
+//    x.ValueLengthLimit = int.MaxValue;
+//    x.MultipartBodyLengthLimit = int.MaxValue;
+//    x.MultipartBoundaryLengthLimit = int.MaxValue;
+//    x.MultipartHeadersCountLimit = int.MaxValue;
+//    x.MultipartHeadersLengthLimit = int.MaxValue;
+//});
 
 //Swagger
 builder.Services.AddSwaggerGen(options =>

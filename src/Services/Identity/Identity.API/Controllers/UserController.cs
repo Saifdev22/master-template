@@ -1,5 +1,4 @@
-﻿using BuildingBlocksClient.Identity.DTOs;
-using BuildingBlocksClient.Identity.Interfaces;
+﻿
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.API.Controllers
@@ -18,6 +17,12 @@ namespace Identity.API.Controllers
         public async Task<IActionResult> GetUserById(string userId)
         {
             return Ok(await _userService.GetUserById(userId));
+        }
+
+        [HttpPost("multiupload")]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
+        {
+            return Ok(await _userService.CreateUser(createUserDTO));
         }
 
         [HttpPut]

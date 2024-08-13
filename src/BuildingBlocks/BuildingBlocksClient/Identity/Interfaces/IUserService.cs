@@ -5,6 +5,7 @@ namespace BuildingBlocksClient.Identity.Interfaces
 {
     public interface IUserService
     {
+        Task<GeneralResponse> CreateUser(CreateUserDTO user);
         Task<List<GetUserDTO>> GetAllUsers();
         Task<GetUserDTO> GetUserById(string userId);
         Task<GeneralResponse> DeleteUserById(string userId);

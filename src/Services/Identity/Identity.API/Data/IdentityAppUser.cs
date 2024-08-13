@@ -9,6 +9,7 @@ namespace Identity.API.Data
         public string Gender { get; set; } = default!;
         public DateOnly DateOfBirth { get; set; }
         public byte[] ProfileImage { get; set; } = default!;
+        public string ImageUrl { get; set; } = default!;
         public string Notes { get; set; } = default!;
     }
 }
