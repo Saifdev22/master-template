@@ -20,7 +20,7 @@ namespace Identity.API.Controllers
         }
 
         [HttpPost("multiupload")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO createUserDTO)
+        public async Task<IActionResult> CreateUser(CreateUserDTO createUserDTO)
         {
             return Ok(await _userService.CreateUser(createUserDTO));
         }

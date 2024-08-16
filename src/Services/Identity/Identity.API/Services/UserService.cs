@@ -1,17 +1,65 @@
-﻿using BuildingBlocksClient.Identity.DTOs;
-using BuildingBlocksClient.Identity.Interfaces;
-using Identity.API.Data;
+﻿using Identity.API.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
 namespace Identity.API.Services
 {
-    public class UserService(UserManager<IdentityAppUser> _userManager) : IUserService
+    public class UserService(UserManager<IdentityAppUser> _userManager, IWebHostEnvironment _env) : IUserService
     {
+        public class UploadResult
+        {
+            public int Id { get; set; }
+            public string? FileName { get; set; }
+            public string? StoredFileName { get; set; }
+            public string? ContentType { get; set; }
+        }
+
+        //public async Task<IActionResult> DownloadFile(string fileName)
+        //{
+        //    var uploadResult = await _context.Uploads.FirstOrDefaultAsync(u => u.StoredFileName.Equals(fileName));
+
+        //    var path = Path.Combine(_env.ContentRootPath, "uploads", fileName);
+
+        //    var memory = new MemoryStream();
+        //    using (var stream = new FileStream(path, FileMode.Open))
+        //    {
+        //        await stream.CopyToAsync(memory);
+        //    }
+        //    memory.Position = 0;
+        //    return File(memory, uploadResult.ContentType, Path.GetFileName(path));
+        //}
+
+
         public async Task<GeneralResponse> CreateUser(CreateUserDTO userDTO)
         {
             if (userDTO is null) return new GeneralResponse(false, "Model is empty.");
+
+            List<UploadResult> uploadResults = new List<UploadResult>();
+
+            foreach (var file in userDTO.ImageFiles!)
+            {
+                var uploadResult = new UploadResult();
+
+                var untrustedFileName = file.FileName;
+
+
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "images", file.FileName);
+                var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                var extension = Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(path, file.FileName);
+
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.CopyToAsync(fs);
+
+                uploadResult.FileName = untrustedFileName;
+                uploadResult.StoredFileName = file.FileName;
+                uploadResult.ContentType = file.ContentType;
+
+                uploadResults.Add(uploadResult);
+                //_context.Uploads.Add(uploadResult);
+            }
+
 
             var newUser = new IdentityAppUser()
             {
@@ -19,12 +67,11 @@ namespace Identity.API.Services
                 Email = userDTO.Email,
                 PasswordHash = userDTO.Password,
                 PhoneNumber = userDTO.PhoneNumber,
-
-                TenantId = userDTO.TenantId,
-                RoleId = userDTO.RoleId,
-                Gender = userDTO.Gender,
-                DateOfBirth = userDTO.DateOfBirth,
-                Notes = userDTO.Notes,
+                ImageUrl = "",
+                TenantId = userDTO.TenantId!,
+                RoleId = userDTO.RoleId!,
+                Gender = userDTO.Gender!,
+                Notes = userDTO.Notes!,
             };
 
             var user = await _userManager.FindByEmailAsync(newUser.Email);

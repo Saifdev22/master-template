@@ -4,19 +4,16 @@ using Identity.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Identity.API.Data.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20240813021324_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(IdentityAppContext))]
+    partial class IdentityAppContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BuildingBlocksClient.Starter.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,7 +7,6 @@ using Starter.Infrastructure.Data.Interceptors;
 using Starter.Infrastructure.Multitenancy;
 using Starter.Infrastructure.Multitenancy.Extensions;
 using Starter.Infrastructure.Multitenancy.Services;
-using Starter.Infrastructure.Multitenancy.Services.Implementations;
 
 namespace Starter.Infrastructure.Data
 {

@@ -1,28 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Starter.Infrastructure.Multitenancy.Dtos;
-using Starter.Infrastructure.Multitenancy.Services.Implementations;
+﻿using BuildingBlocksClient.Starter.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using static BuildingBlocksClient.Starter.DTOs.TenantDTO;
 
 namespace Starter.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TenantController : ControllerBase
+    public class TenantController(ITenantService _tenantService) : ControllerBase
     {
-        private readonly ITenantService _tenantService;
-
-        public TenantController(ITenantService tenantService)
+        [HttpGet]
+        public async Task<IActionResult> GetAllTenants()
         {
-            _tenantService = tenantService;
+            return Ok(await _tenantService.GetAllTenants());
         }
 
-        public ITenantService? TenantService { get; }
-
-        // Create a new tenant
         [HttpPost]
-        public IActionResult Post(CreateTenantRequest request)
+        public async Task<IActionResult> Post(CreateTenant request)
         {
-            var result = _tenantService.CreateTenant(request);
-            return Ok(result);
+            return Ok(await _tenantService.CreateTenant(request));
         }
+
+
     }
 }

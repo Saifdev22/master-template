@@ -1,4 +1,5 @@
-﻿using Identity.API.Extensions;
+﻿
+using Identity.API.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Starter.Application.Identity.Users.Abstractions;

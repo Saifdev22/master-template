@@ -1,4 +1,3 @@
-using BuildingBlocksClient.Identity.Interfaces;
 using Identity.API.Data;
 using Identity.API.Extensions;
 using Identity.API.Services;
@@ -14,13 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 //Database Connection
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<IdentityAppContext>(options =>
          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
          throw new InvalidOperationException("Issue With Connection String!")));
 
 //Identity Manager
 builder.Services.AddIdentity<IdentityAppUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
+    .AddEntityFrameworkStores<IdentityAppContext>()
     .AddSignInManager()
     .AddRoles<IdentityRole>();
 
@@ -37,15 +36,21 @@ builder.Services.AddCors(options =>
     });
 });
 
+//Configures all requests globally
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.MaxRequestBodySize = long.MaxValue;
+});
+
 //File Upload
-//builder.Services.Configure<FormOptions>(x =>
-//{
-//    x.ValueLengthLimit = int.MaxValue;
-//    x.MultipartBodyLengthLimit = int.MaxValue;
-//    x.MultipartBoundaryLengthLimit = int.MaxValue;
-//    x.MultipartHeadersCountLimit = int.MaxValue;
-//    x.MultipartHeadersLengthLimit = int.MaxValue;
-//});
+builder.Services.Configure<FormOptions>(x =>
+{
+    x.ValueLengthLimit = int.MaxValue;
+    x.MultipartBodyLengthLimit = int.MaxValue;
+    x.MultipartBoundaryLengthLimit = int.MaxValue;
+    x.MultipartHeadersCountLimit = int.MaxValue;
+    x.MultipartHeadersLengthLimit = int.MaxValue;
+});
 
 //Swagger
 builder.Services.AddSwaggerGen(options =>

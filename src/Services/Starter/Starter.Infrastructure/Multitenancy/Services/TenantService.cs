@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Starter.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Starter.Infrastructure.Multitenancy.Dtos;
-using Starter.Infrastructure.Multitenancy.Services.Implementations;
+using Starter.Domain.Models;
+using static BuildingBlocksClient.Starter.DTOs.TenantDTO;
 
 namespace Starter.Infrastructure.Multitenancy.Services
 {
@@ -20,7 +22,7 @@ namespace Starter.Infrastructure.Multitenancy.Services
             _serviceProvider = serviceProvider;
         }
 
-        public Tenant CreateTenant(CreateTenantRequest request)
+        public async Task<GetAllTenants> CreateTenant(CreateTenant request)
         {
 
             string newConnectionString = null!;
@@ -53,17 +55,50 @@ namespace Starter.Infrastructure.Multitenancy.Services
             }
 
 
-            Tenant tenant = new() // create a new tenant entity
+            Tenant tenant = new()
             {
                 Id = request.Id,
                 Name = request.Name,
                 ConnectionString = newConnectionString,
             };
 
-            _context.AddAsync(tenant);
-            _context.SaveChangesAsync();
+            await _context.AddAsync(tenant);
+            await _context.SaveChangesAsync();
 
-            return tenant;
+            GetAllTenants tenantobj = new GetAllTenants
+            {
+                Id = tenant.Id,
+                SubscriptionLevel = tenant.SubscriptionLevel,
+                ConnectionString = tenant.ConnectionString,
+                Name = tenant.Name
+            };
+
+            return tenantobj;
         }
+
+        public async Task<List<GetAllTenants>> GetAllTenants()
+        {
+            var tenants = await _context.Tenants.ToListAsync();
+
+            var tenantObj = tenants.Select(c => new GetAllTenants
+            {
+                Id = c.Id,
+                Name = c.Name,
+                SubscriptionLevel = c.SubscriptionLevel,
+                ConnectionString = c.ConnectionString
+
+            }).ToList();
+            
+                        //var categoryDtos = user.Select(c => new GetUserDTO
+                        //{
+                        //    Id = c.Id,
+                        //    Email = c.Email!,
+                        //    Username = c.UserName!,
+                        //    Tenant = c.TenantId!
+                        //}).ToList();
+
+            return tenantObj!;
+        }
+
     }
 }

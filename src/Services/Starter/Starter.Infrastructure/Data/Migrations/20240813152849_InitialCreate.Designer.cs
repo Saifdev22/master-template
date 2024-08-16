@@ -12,7 +12,7 @@ using Starter.Infrastructure.Data;
 namespace Starter.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240809165421_InitialCreate")]
+    [Migration("20240813152849_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

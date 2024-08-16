@@ -1,6 +1,4 @@
-﻿using BuildingBlocksClient.Identity.DTOs;
-using BuildingBlocksClient.Identity.Interfaces;
-using Identity.API.Data;
+﻿using Identity.API.Data;
 using Microsoft.AspNetCore.Identity;
 using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
