@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <div class="col-md-12">
-                    <EditForm Model="registerDTO" OnValidSubmit="CreateUser" FormName="RegisterForm">
+                    <EditForm Model="userDTO" OnValidSubmit="CreateUser" FormName="RegisterForm">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
                         <div class="col-md-12">
@@ -16,38 +16,77 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Username</label>
-                                        <InputText for="Username" class="form-control" @bind-Value="@registerDTO.Username" />
-                                        <ValidationMessage For="()=>registerDTO.Username" />
+                                        <InputText for="Username" class="form-control" @bind-Value="@userDTO.Username" />
+                                        <ValidationMessage For="()=>userDTO.Username" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
-                                        <InputText for="Email" class="form-control" @bind-Value="@registerDTO.Email" />
-                                        <ValidationMessage For="()=>registerDTO.Email" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Tenant</label>
-                                        <InputText for="Tenant" class="form-control" @bind-Value="@registerDTO.TenantId" />
-                                        <ValidationMessage For="()=>registerDTO.TenantId" />
+                                        <InputText for="Email" class="form-control" @bind-Value="@userDTO.Email" />
+                                        <ValidationMessage For="()=>userDTO.Email" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Password</label>
-                                        <InputText for="Password" class="form-control" @bind-Value="@registerDTO.Password" />
-                                        <ValidationMessage For="()=>registerDTO.Password" />
+                                        <InputText for="Password" class="form-control" @bind-Value="@userDTO.Password" />
+                                        <ValidationMessage For="()=>userDTO.Password" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Confirm Password</label>
-                                        <InputText for="ConfirmPassword" class="form-control" @bind-Value="@registerDTO.ConfirmPassword" />
-                                        <ValidationMessage For="()=>registerDTO.ConfirmPassword" />
+                                        <label class="control-label">Password</label>
+                                        <InputText for="Password" class="form-control" @bind-Value="@userDTO.PhoneNumber" />
+                                        <ValidationMessage For="()=>userDTO.PhoneNumber" />
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Tenant</label>
+                                        <InputText for="Tenant" class="form-control" @bind-Value="@userDTO.TenantId" />
+                                        <ValidationMessage For="()=>userDTO.TenantId" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Role</label>
+                                        <InputNumber for="RoleId" class="form-control" @bind-Value="@userDTO.RoleId" />
+                                        <ValidationMessage For="()=>userDTO.RoleId" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="team">Gender</label><br />
+                                    <InputRadioGroup id="team" @bind-Value="@userDTO.Gender" class="form-control">
+                                        <InputRadio Value="1" />
+                                        <span style="padding-left: 5px;">Male</span>
+                                    <br />
+                                        <InputRadio Value="2" />
+                                        <span style="padding-left: 5px;">Female</span>
+                                    <br />
+                                    </InputRadioGroup>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Date Of Birth</label>
+                                        <InputDate for="DateOfBirth" class="form-control" @bind-Value="@userDTO.DateOfBirth" />
+                                        <ValidationMessage For="()=>userDTO.DateOfBirth" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="notes" class="control-label">Notes</label>
+                                        <InputTextArea id="notes" class="form-control" @bind-Value="@userDTO.Notes" />
+                                        <ValidationMessage For="()=>userDTO.Notes" />
+                                    </div>
+                                </div>
+@*                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">IsActive</label>
+                                        <InputCheckBox for="DateOfBirth" class="form-control" @bind-Value="@userDTO.IsActive" />
+                                        <ValidationMessage For="()=>userDTO.IsActive" />
+                                    </div>
+                                </div> *@
                             </div>
                             <div class="form-group mt-4">
                                 <button type="submit" class="btn btn-primary">Save</button>
@@ -63,11 +102,11 @@
 
 @code {
     [SupplyParameterFromForm]
-    public RegisterDTO registerDTO { get; set; } = new();
+    public CreateUserDTO userDTO { get; set; } = new();
 
     protected async Task CreateUser()
     {
-        var result = await _accountService.CreateAccount(registerDTO);
+        var result = await _userService.CreateUser(userDTO);
         _navigationManager.NavigateTo("/user-list");
     }
 

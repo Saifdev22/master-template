@@ -1,9 +1,7 @@
-﻿using BuildingBlocksClient.Identity.DTOs;
-using BuildingBlocksClient.Starter.Interfaces;
+﻿using BuildingBlocksClient.Starter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Starter.Domain.Models;
 using static BuildingBlocksClient.Starter.DTOs.TenantDTO;
 
 namespace Starter.Infrastructure.Multitenancy.Services
@@ -88,14 +86,14 @@ namespace Starter.Infrastructure.Multitenancy.Services
                 ConnectionString = c.ConnectionString
 
             }).ToList();
-            
-                        //var categoryDtos = user.Select(c => new GetUserDTO
-                        //{
-                        //    Id = c.Id,
-                        //    Email = c.Email!,
-                        //    Username = c.UserName!,
-                        //    Tenant = c.TenantId!
-                        //}).ToList();
+
+            //var categoryDtos = user.Select(c => new GetUserDTO
+            //{
+            //    Id = c.Id,
+            //    Email = c.Email!,
+            //    Username = c.UserName!,
+            //    Tenant = c.TenantId!
+            //}).ToList();
 
             return tenantObj!;
         }

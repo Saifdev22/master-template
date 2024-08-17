@@ -1,5 +1,4 @@
-﻿
-using Identity.API.Extensions;
+﻿using Identity.API.Infrastructure.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Starter.Application.Identity.Users.Abstractions;
@@ -17,7 +16,7 @@ namespace Starter.Infrastructure.Identity
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped(sp => (ICurrentUserInitializer)sp.GetRequiredService<ICurrentUserService>());
             services.AddScoped<UserMiddleware>();
-            services.AddJwtAuthentication(configuration);
+            services.ConfigureJwt(configuration);
 
             return services;
         }

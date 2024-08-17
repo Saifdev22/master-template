@@ -2,12 +2,14 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Identity.API.Extensions
+namespace Identity.API.Infrastructure.Jwt
 {
-    public static class JwtExtension
+    public static class Extension
     {
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,6 +32,22 @@ namespace Identity.API.Extensions
             });
 
             return services;
+        }
+
+        public static string GetIpAddress(this HttpContext context)
+        {
+            string ip = "N/A";
+            if (context.Request.Headers.TryGetValue("X-Forwarded-For", out var ipList))
+            {
+                ip = ipList.FirstOrDefault() ?? "N/A";
+            }
+            else if (context.Connection.RemoteIpAddress != null)
+            {
+                ip = context.Connection.RemoteIpAddress.MapToIPv4().ToString();
+            }
+
+            return ip;
+
         }
 
     }

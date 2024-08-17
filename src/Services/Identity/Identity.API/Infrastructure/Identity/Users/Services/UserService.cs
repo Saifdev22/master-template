@@ -1,11 +1,13 @@
-﻿using Identity.API.Data;
+﻿using Identity.API.Infrastructure.Identity.Roles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
-namespace Identity.API.Services
+namespace Identity.API.Infrastructure.Identity.Users.Services
 {
-    public class UserService(UserManager<IdentityAppUser> _userManager, IWebHostEnvironment _env) : IUserService
+    public class UserService(UserManager<IdentityAppUser> _userManager,
+        RoleManager<IdentityAppRole> _roleManager,
+        IWebHostEnvironment _env) : IUserService
     {
         public class UploadResult
         {
@@ -31,13 +33,13 @@ namespace Identity.API.Services
         //}
 
 
-        public async Task<GeneralResponse> CreateUser(CreateUserDTO userDTO)
+        public async Task<GeneralResponse> CreateUser(CreateUserDTO userDTO, IFormFileCollection files)
         {
             if (userDTO is null) return new GeneralResponse(false, "Model is empty.");
 
             List<UploadResult> uploadResults = new List<UploadResult>();
 
-            foreach (var file in userDTO.ImageFiles!)
+            foreach (var file in files)
             {
                 var uploadResult = new UploadResult();
 
@@ -68,6 +70,7 @@ namespace Identity.API.Services
                 PasswordHash = userDTO.Password,
                 PhoneNumber = userDTO.PhoneNumber,
                 ImageUrl = "",
+                ProfileImage = BitConverter.GetBytes(100),
                 TenantId = userDTO.TenantId!,
                 RoleId = userDTO.RoleId!,
                 Gender = userDTO.Gender!,
@@ -80,9 +83,22 @@ namespace Identity.API.Services
             var createUser = await _userManager.CreateAsync(newUser, userDTO.Password);
             if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured... please try again.");
 
-            //Assign Role
-            await _userManager.AddToRoleAsync(newUser, "Admin");
-            return new GeneralResponse(true, "Account Created");
+            //Create Roles
+            var checkAdmin = await _roleManager.FindByNameAsync("Admin");
+            if (checkAdmin is null)
+            {
+                await _roleManager.CreateAsync(new IdentityAppRole("Admin", "s"));
+                await _userManager.AddToRoleAsync(newUser, "Admin");
+                return new GeneralResponse(true, "Account Created.");
+            }
+            else
+            {
+                var checkUser = await _roleManager.FindByNameAsync("User");
+                if (checkUser is null) await _roleManager.CreateAsync(new IdentityAppRole("User", "sed"));
+
+                await _userManager.AddToRoleAsync(newUser, "User");
+                return new GeneralResponse(true, "Account Created.");
+            }
 
         }
 

@@ -1,9 +1,5 @@
-using Identity.API.Data;
-using Identity.API.Extensions;
-using Identity.API.Services;
+using Identity.API.Infrastructure;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -11,21 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Controller Support.
 builder.Services.AddControllers();
-
-//Database Connection
-builder.Services.AddDbContext<IdentityAppContext>(options =>
-         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
-         throw new InvalidOperationException("Issue With Connection String!")));
-
-//Identity Manager
-builder.Services.AddIdentity<IdentityAppUser, IdentityRole>()
-    .AddEntityFrameworkStores<IdentityAppContext>()
-    .AddSignInManager()
-    .AddRoles<IdentityRole>();
-
-// JWT
-builder.Services.AddJwtAuthentication(builder.Configuration);
-builder.Services.AddScoped<ITokenService, TokenService>();
 
 //Cors
 builder.Services.AddCors(options =>
@@ -65,10 +46,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-//Middleware & Services
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddTransient<CustomAuthorizationMiddleware>();
+builder.AddInfrastructure();
 
 var app = builder.Build();
 
@@ -79,23 +57,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseInfrastructure();
+
 //app.UseMiddleware<RestrictAccessMiddleware>();
 
 app.UseHttpsRedirection();
 
 app.UseCors();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-//app.UseMiddleware<CustomAuthenticationMiddleware>();
-//app.UseMiddleware<CustomAuthorizationMiddleware>();
-app.Use(async (context, next) =>
-{
-    Console.WriteLine($"Request: {context.Request.Method} {context.Request.Path}");
-    await next();
-
-});
 
 app.MapControllers();
 

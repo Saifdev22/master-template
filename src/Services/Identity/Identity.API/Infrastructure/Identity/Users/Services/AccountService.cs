@@ -1,11 +1,11 @@
-﻿using Identity.API.Data;
+﻿using Identity.API.Infrastructure.Identity.Roles;
 using Microsoft.AspNetCore.Identity;
 using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
-namespace Identity.API.Services
+namespace Identity.API.Infrastructure.Identity.Users.Services
 {
     public class AccountService(UserManager<IdentityAppUser> _userManager,
-                             RoleManager<IdentityRole> _roleManager,
+                             RoleManager<IdentityAppRole> _roleManager,
                              ITokenService _tokenService) : IAccountService
     {
 
@@ -33,12 +33,11 @@ namespace Identity.API.Services
 
             var createUser = await _userManager.CreateAsync(newUser!, userDTO.Password);
             if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
-
             //Assign Default Role : Admin to first registrar; rest is user
             var checkAdmin = await _roleManager.FindByNameAsync("Admin");
             if (checkAdmin is null)
             {
-                await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
+                await _roleManager.CreateAsync(new IdentityAppRole("Admin", "Test"));
                 await _userManager.AddToRoleAsync(newUser, "Admin");
                 return new GeneralResponse(true, "Account Created");
             }
@@ -46,7 +45,7 @@ namespace Identity.API.Services
             {
                 var checkUser = await _roleManager.FindByNameAsync("User");
                 if (checkUser is null)
-                    await _roleManager.CreateAsync(new IdentityRole() { Name = "User" });
+                    await _roleManager.CreateAsync(new IdentityAppRole("User", "Test2"));
 
                 await _userManager.AddToRoleAsync(newUser, "User");
                 return new GeneralResponse(true, "Account Created");
