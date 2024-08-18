@@ -13,13 +13,9 @@ namespace Identity.API.Infrastructure.Identity.Users.Services
         {
             if (userDTO is null) return new GeneralResponse(false, "Model is empty");
 
-            var newUser = new IdentityAppUser()
+            var newUser = new IdentityAppUser(userDTO.Username, userDTO.Email)
             {
                 TenantId = userDTO.TenantId,
-                RoleId = userDTO.RoleId,
-
-                UserName = userDTO.Username,
-                Email = userDTO.Email,
                 PasswordHash = userDTO.Password,
 
                 Gender = userDTO.Gender,
@@ -28,7 +24,7 @@ namespace Identity.API.Infrastructure.Identity.Users.Services
                 Notes = userDTO.Notes,
             };
 
-            var user = await _userManager.FindByEmailAsync(newUser.Email);
+            var user = await _userManager.FindByEmailAsync(newUser.Email!);
             if (user is not null) return new GeneralResponse(false, "User registered exists.");
 
             var createUser = await _userManager.CreateAsync(newUser!, userDTO.Password);

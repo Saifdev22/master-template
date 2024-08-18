@@ -40,10 +40,10 @@ namespace Identity.API.Infrastructure.Identity
 
         public static IEndpointRouteBuilder MapIdentityEndpoints(this IEndpointRouteBuilder app)
         {
-            var roles = app.MapGroup("api/roles").WithTags("roles");
+            var roles = app.MapGroup("identity/roles").WithTags("roles");
             roles.MapRoleEndpoints();
 
-            var users = app.MapGroup("api/users").WithTags("users");
+            var users = app.MapGroup("identity/users").WithTags("users");
             users.MapUserEndpoints();
 
             return app;

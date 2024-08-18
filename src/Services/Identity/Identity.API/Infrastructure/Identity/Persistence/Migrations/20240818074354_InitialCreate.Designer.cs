@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 {
     [DbContext(typeof(IdentityAppContext))]
-    [Migration("20240817082625_InitialCreateNew")]
-    partial class InitialCreateNew
+    [Migration("20240818074354_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,59 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Identity.API.Infrastructure.Identity.Roles.IdentityAppRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("Roles", "identity");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "26ec6b6c-0638-4ec0-a05a-6c51637c7c00",
+                            Name = "Master",
+                            NormalizedName = "MASTER",
+                            Notes = "Master role with complete software control."
+                        },
+                        new
+                        {
+                            Id = "3843b21f-510c-4862-93da-2ee86a11dac7",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN",
+                            Notes = "Administrator role with limited permissions."
+                        },
+                        new
+                        {
+                            Id = "9aa15bfb-b7f9-48d5-bf1c-b1fe5e18a1b3",
+                            Name = "User",
+                            NormalizedName = "USER",
+                            Notes = "User role with limited permissions."
+                        });
+                });
 
             modelBuilder.Entity("Identity.API.Infrastructure.Identity.Users.IdentityAppUser", b =>
                 {
@@ -55,6 +108,9 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -83,11 +139,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<byte[]>("ProfileImage")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -113,34 +165,78 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
-                });
+                    b.ToTable("Users", "identity");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.HasData(
+                        new
+                        {
+                            Id = "5bee18a1-7d35-4433-a44e-8665d1031e30",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "98cb88d6-53b2-4dfd-9513-8fab0d2b0809",
+                            DateOfBirth = new DateOnly(1980, 1, 1),
+                            Email = "master@gmail.com",
+                            EmailConfirmed = true,
+                            Gender = "Male",
+                            ImageUrl = "Image1",
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MASTER",
+                            NormalizedUserName = "MASTER",
+                            Notes = "System Master",
+                            PasswordHash = "AQAAAAIAAYagAAAAEABD9+VQCtRBI9+d014sku81ZS+aUsmWRKJlmzji+5ZU9J/+qrm6ViAdx7YDQU9t+A==",
+                            PhoneNumberConfirmed = false,
+                            ProfileImage = new byte[] { 100, 0, 0, 0 },
+                            SecurityStamp = "",
+                            TenantId = "tenant_1",
+                            TwoFactorEnabled = false,
+                            UserName = "Master"
+                        },
+                        new
+                        {
+                            Id = "ee73a14a-9ff2-40d0-8b73-1f76ec1db304",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2e002855-e869-43d8-b9e0-f1eaecc974f8",
+                            DateOfBirth = new DateOnly(1982, 10, 11),
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            Gender = "Male",
+                            ImageUrl = "Image2",
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN",
+                            NormalizedUserName = "ADMIN",
+                            Notes = "System Administrator",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHAXMaeEpefmHK42Gp+GWoDzV7YT3olcXrtL/O4KKvNGZr1W/iR/SBNqZopvojEbMA==",
+                            PhoneNumberConfirmed = false,
+                            ProfileImage = new byte[] { 200, 0, 0, 0 },
+                            SecurityStamp = "",
+                            TenantId = "tenant_1",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "767cba8b-62c3-4474-9c00-713db46ef2ef",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e76ed4e4-68ee-442f-8805-d8023b53be8f",
+                            DateOfBirth = new DateOnly(1994, 11, 2),
+                            Email = "user@example.com",
+                            EmailConfirmed = true,
+                            Gender = "Female",
+                            ImageUrl = "Image3",
+                            IsActive = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER",
+                            NormalizedUserName = "USER",
+                            Notes = "Regular User",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL16uWoJSke4TplxKnGy3elWUZWrMjg8XB+kunkpYU9M3GFTb6oXg/lj8SBRQXehPw==",
+                            PhoneNumberConfirmed = false,
+                            ProfileImage = new byte[] { 44, 1, 0, 0 },
+                            SecurityStamp = "",
+                            TenantId = "tenant_1",
+                            TwoFactorEnabled = false,
+                            UserName = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -165,7 +261,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -190,7 +286,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -212,7 +308,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -227,7 +323,24 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", "identity");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "5bee18a1-7d35-4433-a44e-8665d1031e30",
+                            RoleId = "26ec6b6c-0638-4ec0-a05a-6c51637c7c00"
+                        },
+                        new
+                        {
+                            UserId = "ee73a14a-9ff2-40d0-8b73-1f76ec1db304",
+                            RoleId = "3843b21f-510c-4862-93da-2ee86a11dac7"
+                        },
+                        new
+                        {
+                            UserId = "767cba8b-62c3-4474-9c00-713db46ef2ef",
+                            RoleId = "9aa15bfb-b7f9-48d5-bf1c-b1fe5e18a1b3"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -246,12 +359,12 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens", "identity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Identity.API.Infrastructure.Identity.Roles.IdentityAppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -278,7 +391,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Identity.API.Infrastructure.Identity.Roles.IdentityAppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)

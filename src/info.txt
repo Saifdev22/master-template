@@ -4,7 +4,7 @@ Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Con
 Add-Migration -Name InitialCreate -OutputDir Multitenancy/Migrations -Context TenantDbContext -Project Starter.Infrastructure -StartupProject Starter.API
 Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Context TenantDbContext
 
-Add-Migration -Name InitialCreateNew22 -Project Identity.API -StartupProject Identity.API -OutputDir Infrastructure/Identity/Persistence/Migrations -Context IdentityAppContext 
+Add-Migration -Name InitialCreate -Project Identity.API -StartupProject Identity.API -OutputDir Infrastructure/Identity/Persistence/Migrations -Context IdentityAppContext 
 Update-Database -Project Identity.API -StartupProject Identity.API -Context IdentityAppContext 
 
 

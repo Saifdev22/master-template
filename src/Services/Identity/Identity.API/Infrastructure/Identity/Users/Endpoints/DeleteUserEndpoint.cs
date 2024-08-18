@@ -1,6 +1,4 @@
-﻿using Identity.API.Infrastructure.Identity.Roles.Endpoints;
-
-namespace Identity.API.Infrastructure.Identity.Users.Endpoints
+﻿namespace Identity.API.Infrastructure.Identity.Users.Endpoints
 {
     public static class DeleteUserEndpoint
     {
@@ -10,7 +8,7 @@ namespace Identity.API.Infrastructure.Identity.Users.Endpoints
             {
                 await _userService.DeleteUserById(id);
             })
-            .WithName(nameof(DeleteUserEndpoint)) 
+            .WithName(nameof(DeleteUserEndpoint))
             .WithSummary("Delete a user by ID.")
             .WithDescription("Remove a user from the system by its ID.");
         }

@@ -50,9 +50,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Role</label>
-                                        <InputNumber for="RoleId" class="form-control" @bind-Value="@userDTO.RoleId" />
-                                        <ValidationMessage For="()=>userDTO.RoleId" />
+                                        <InputSelect id="department" @bind-Value="userDTO.RoleId" class="form-control">
+                                            @foreach (var dept in roleDTO)
+                                            {
+                                                <option value="@dept.Id">@dept.Name</option>
+                                            }
+                                        </InputSelect>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -104,9 +107,16 @@
     [SupplyParameterFromForm]
     public CreateUserDTO userDTO { get; set; } = new();
 
+    private List<RoleDTO> roleDTO = new List<RoleDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        roleDTO = (await _roleService.GetAllRoles()).ToList();
+    }
+
     protected async Task CreateUser()
     {
-        var result = await _userService.CreateUser(userDTO);
+        //var result = await _userService.CreateUser(userDTO);
         _navigationManager.NavigateTo("/user-list");
     }
 

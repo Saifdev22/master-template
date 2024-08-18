@@ -24,7 +24,7 @@ namespace BuildingBlocksClient.Identity.DTOs
         public string ConfirmPassword { get; set; } = string.Empty;
 
         public string TenantId { get; set; } = default!;
-        public int RoleId { get; set; }
+        public Guid RoleId { get; set; }
         public string Gender { get; set; } = default!;
         public DateOnly DateOfBirth { get; set; }
         public byte[] ProfileImage { get; set; } = default!;

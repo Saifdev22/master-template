@@ -5,7 +5,7 @@ namespace Clients.BlazorWASM.Services.Identity
 {
     public class RoleService(CustomHttpClient _httpClient) : IRoleService
     {
-        public const string baseUrl = "identity/role";
+        public const string baseUrl = "identity/roles";
 
         public Task<RoleDTO> CreateOrUpdateRole(RoleDTO command)
         {

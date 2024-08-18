@@ -1,11 +1,12 @@
-﻿using System.Net.Http.Json;
+﻿using Microsoft.AspNetCore.Http;
+using System.Net.Http.Json;
 using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
 
 namespace Clients.BlazorWASM.Services
 {
     public class UserService(CustomHttpClient _httpClient) : IUserService
     {
-        public const string baseUrl = "identity/user";
+        public const string baseUrl = "identity/users";
         public async Task<List<GetUserDTO>> GetAllUsers()
         {
             var http = await _httpClient.GetPrivateHttpClient();
@@ -40,7 +41,7 @@ namespace Clients.BlazorWASM.Services
             return result!;
         }
 
-        public Task<GeneralResponse> CreateUser(CreateUserDTO user)
+        public Task<GeneralResponse> CreateUser(CreateUserDTO user, IFormFileCollection files)
         {
             throw new NotImplementedException();
         }
