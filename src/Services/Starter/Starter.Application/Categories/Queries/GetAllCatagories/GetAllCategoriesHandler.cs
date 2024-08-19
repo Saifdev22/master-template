@@ -1,4 +1,5 @@
-﻿using BuildingBlocksClient.Pagination;
+﻿using BuildingBlocks.Application.CQRS;
+using BuildingBlocksClient.Pagination;
 using BuildingBlocksClient.Starter.DTOs;
 using Microsoft.EntityFrameworkCore;
 

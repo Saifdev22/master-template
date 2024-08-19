@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace BuildingBlocks.Gateway
+namespace BuildingBlocks.Infrastructure.Gateway
 {
     public class RestrictAccessMiddleware(RequestDelegate next)
     {

@@ -1,1 +1,1 @@
-﻿global using BuildingBlocks.Exceptions.Handler;
+﻿global using BuildingBlocks.Domain.Exceptions.Handler;

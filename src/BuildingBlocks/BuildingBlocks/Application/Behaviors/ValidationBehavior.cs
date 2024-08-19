@@ -1,8 +1,8 @@
-﻿using BuildingBlocks.CQRS;
+﻿using BuildingBlocks.Application.CQRS;
 using FluentValidation;
 using MediatR;
 
-namespace BuildingBlocks.Behaviors;
+namespace BuildingBlocks.Application.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>
     (IEnumerable<IValidator<TRequest>> validators)

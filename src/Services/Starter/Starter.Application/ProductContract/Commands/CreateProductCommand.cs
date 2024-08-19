@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using BuildingBlocks.Application.CQRS;
+using FluentValidation;
 
 namespace Starter.Application.ProductContract.Commands
 {

@@ -1,4 +1,6 @@
-﻿namespace Starter.Application.Categories.Commands.CreateCategory
+﻿using BuildingBlocks.Application.CQRS;
+
+namespace Starter.Application.Categories.Commands.CreateCategory
 {
     public class CreateCategoryHandler(IApplicationDbContext dbContext)
         : ICommandHandler<CreateCategoryCommand, CreateCategoryResult>

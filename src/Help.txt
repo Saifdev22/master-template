@@ -1,0 +1,32 @@
+Add-Migration -Name InitialCreate -OutputDir Data/Migrations -Context ApplicationDbContext -Project Starter.Infrastructure -StartupProject Starter.API
+Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Context ApplicationDbContext
+
+Add-Migration -Name InitialCreate -OutputDir Multitenancy/Migrations -Context TenantDbContext -Project Starter.Infrastructure -StartupProject Starter.API
+Update-Database -Project Starter.Infrastructure -StartupProject Starter.API -Context TenantDbContext
+
+Add-Migration -Name InitialCreate -Project Identity.API -StartupProject Identity.API -OutputDir Infrastructure/Identity/Persistence/Migrations -Context IdentityAppContext 
+Update-Database -Project Identity.API -StartupProject Identity.API -Context IdentityAppContext 
+
+
+
+
+
+Creating Endpoint (Server)
+
+1. Create Model/DTO
+2. Add Service Interface.
+3. Implement Service Interface.
+4. Build Service Class.
+5. Build Contoller With Service.
+6. Test Controller Endpoint With Postman.
+
+Using Endpoint (Client)
+
+1. Implement Service Interface.
+2. Build Service Class.
+3. Test Service In Blazor Pages.
+
+
+Tasks
+
+1.Remove Identity Project Reference from Starter.Infrastructure

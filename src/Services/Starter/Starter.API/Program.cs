@@ -1,3 +1,4 @@
+using BuildingBlocks.Domain.Exceptions.Handler;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Starter.API;

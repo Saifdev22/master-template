@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.Exceptions;
-using Starter.Application.Identity.Users.Abstractions;
+﻿using Starter.Application.Identity.Users.Abstractions;
 using Starter.Infrastructure.Identity.Extensions;
 using System.Security.Claims;
 

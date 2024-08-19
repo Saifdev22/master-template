@@ -1,4 +1,5 @@
 ﻿
+using BuildingBlocks.Application.CQRS;
 using BuildingBlocksClient.Starter.DTOs;
 using FluentValidation;
 
