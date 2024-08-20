@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
+﻿using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using static BuildingBlocksClient.Application.Starter.DTOs.ServiceResponses;
 
 namespace Identity.API.Infrastructure.Identity.Roles.Services
 {

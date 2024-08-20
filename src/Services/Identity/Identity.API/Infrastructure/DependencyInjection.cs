@@ -1,4 +1,4 @@
-﻿using BuildingBlocksClient.Storage;
+﻿using BuildingBlocksClient.Infrastructure.Storage;
 using Identity.API.Infrastructure.Identity;
 using Identity.API.Infrastructure.Jwt;
 using Identity.API.Infrastructure.Storage;

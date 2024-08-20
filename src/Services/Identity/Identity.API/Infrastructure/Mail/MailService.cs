@@ -1,4 +1,6 @@
-﻿using MailKit.Net.Smtp;
+﻿using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;

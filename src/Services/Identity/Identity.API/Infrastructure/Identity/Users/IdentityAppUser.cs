@@ -25,6 +25,8 @@ namespace Identity.API.Infrastructure.Identity.Users
         public string ImageUrl { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
 
     }
 }

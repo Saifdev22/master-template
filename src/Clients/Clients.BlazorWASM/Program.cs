@@ -1,4 +1,6 @@
 using Blazored.LocalStorage;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+using BuildingBlocksClient.Application.Starter.Interfaces;
 using Clients.BlazorWASM;
 using Clients.BlazorWASM.Services.Identity;
 using Microsoft.AspNetCore.Components.Authorization;

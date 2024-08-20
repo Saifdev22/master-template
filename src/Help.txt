@@ -30,3 +30,4 @@ Using Endpoint (Client)
 Tasks
 
 1.Remove Identity Project Reference from Starter.Infrastructure
+2. Options Pattern

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System.Net.Http.Json;
-using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
+using static BuildingBlocksClient.Application.Starter.DTOs.ServiceResponses;
 
 namespace Clients.BlazorWASM.Services
 {

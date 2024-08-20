@@ -1,6 +1,6 @@
 ﻿
 using BuildingBlocks.Application.CQRS;
-using BuildingBlocksClient.Starter.DTOs;
+using BuildingBlocksClient.Application.Starter.DTOs;
 using FluentValidation;
 
 namespace Starter.Application.Categories.Commands.CreateCategory

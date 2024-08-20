@@ -10,6 +10,9 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.JSInterop
 
+@using System.ComponentModel.DataAnnotations
+
+
 @using Clients.BlazorWASM.Pages.Components
 @attribute [Authorize]
 
@@ -21,3 +24,6 @@
 @inject AuthenticationStateProvider _authenticationStateProvider
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _js
+
+
+@using Clients.BlazorWASM.Layout

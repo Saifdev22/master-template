@@ -1,8 +1,8 @@
-﻿using BuildingBlocksClient.Starter.Interfaces;
+﻿using BuildingBlocksClient.Application.Starter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static BuildingBlocksClient.Starter.DTOs.TenantDTO;
+using static BuildingBlocksClient.Application.Starter.DTOs.TenantDTO;
 
 namespace Starter.Infrastructure.Multitenancy.Services
 {

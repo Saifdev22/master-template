@@ -1,4 +1,7 @@
-﻿namespace Identity.API.Infrastructure.Identity.Users.Endpoints
+﻿using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+
+namespace Identity.API.Infrastructure.Identity.Users.Endpoints
 {
     public static class UpdateUserEndpoint
     {

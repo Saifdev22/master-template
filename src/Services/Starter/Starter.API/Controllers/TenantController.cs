@@ -1,6 +1,6 @@
-﻿using BuildingBlocksClient.Starter.Interfaces;
+﻿using BuildingBlocksClient.Application.Starter.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using static BuildingBlocksClient.Starter.DTOs.TenantDTO;
+using static BuildingBlocksClient.Application.Starter.DTOs.TenantDTO;
 
 namespace Starter.API.Controllers
 {

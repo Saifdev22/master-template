@@ -1,6 +1,6 @@
 ﻿using BuildingBlocks.Application.CQRS;
-using BuildingBlocksClient.Pagination;
-using BuildingBlocksClient.Starter.DTOs;
+using BuildingBlocksClient.Application.Starter.DTOs;
+using BuildingBlocksClient.Domain.Pagination;
 
 namespace Starter.Application.Categories.Queries.GetAllCatagories
 {

@@ -1,2 +1,2 @@
-﻿global using BuildingBlocksClient.Identity.DTOs;
-global using BuildingBlocksClient.Identity.Interfaces;
+﻿global using BuildingBlocksClient.Application.Identity.DTOs;
+global using BuildingBlocksClient.Application.Identity.Interfaces;

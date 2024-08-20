@@ -1,4 +1,4 @@
-﻿using BuildingBlocksClient.Storage;
+﻿using BuildingBlocksClient.Infrastructure.Storage;
 
 namespace Identity.API.Infrastructure.Storage
 {

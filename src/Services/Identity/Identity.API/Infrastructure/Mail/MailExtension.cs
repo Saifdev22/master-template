@@ -1,4 +1,6 @@
-﻿namespace Identity.API.Infrastructure.Mail
+﻿using BuildingBlocksClient.Application.Identity.Interfaces;
+
+namespace Identity.API.Infrastructure.Mail
 {
     internal static class MailExtension
     {

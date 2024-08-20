@@ -1,5 +1,6 @@
-﻿using BuildingBlocksClient.Pagination;
-using BuildingBlocksClient.Starter.DTOs;
+﻿using BuildingBlocksClient.Application.Starter.DTOs;
+using BuildingBlocksClient.Application.Starter.Interfaces;
+using BuildingBlocksClient.Domain.Pagination;
 using System.Net.Http.Json;
 
 namespace Clients.BlazorWASM.Services

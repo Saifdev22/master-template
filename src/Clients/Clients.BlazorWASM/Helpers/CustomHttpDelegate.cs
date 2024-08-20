@@ -1,4 +1,6 @@
 ﻿using System.Net;
+using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
 
 namespace Clients.BlazorWASM.Helpers
 {

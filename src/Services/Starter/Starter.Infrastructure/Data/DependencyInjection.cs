@@ -1,4 +1,4 @@
-﻿using BuildingBlocksClient.Starter.Interfaces;
+﻿using BuildingBlocksClient.Application.Starter.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;

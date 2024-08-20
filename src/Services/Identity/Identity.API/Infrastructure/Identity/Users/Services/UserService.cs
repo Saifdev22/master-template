@@ -1,9 +1,11 @@
-﻿using BuildingBlocksClient.Storage;
+﻿using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+using BuildingBlocksClient.Infrastructure.Storage;
 using Identity.API.Infrastructure.Identity.Roles;
 using Identity.API.Infrastructure.Storage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
+using static BuildingBlocksClient.Application.Starter.DTOs.ServiceResponses;
 
 namespace Identity.API.Infrastructure.Identity.Users.Services
 {

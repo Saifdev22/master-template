@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Json;
-using static BuildingBlocksClient.Starter.DTOs.ServiceResponses;
+using BuildingBlocksClient.Application.Identity.DTOs;
+using BuildingBlocksClient.Application.Identity.Interfaces;
+using static BuildingBlocksClient.Application.Starter.DTOs.ServiceResponses;
 
 namespace Clients.BlazorWASM.Services
 {

@@ -1,7 +1,4 @@
-﻿using BuildingBlocks.Application.CQRS;
-using BuildingBlocksClient.Pagination;
-using BuildingBlocksClient.Starter.DTOs;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Starter.Application.Categories.Queries.GetAllCatagories
 {

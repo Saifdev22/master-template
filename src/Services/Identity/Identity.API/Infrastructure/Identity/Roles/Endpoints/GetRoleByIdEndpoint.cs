@@ -1,4 +1,6 @@
-﻿namespace Identity.API.Infrastructure.Identity.Roles.Endpoints
+﻿using BuildingBlocksClient.Application.Identity.Interfaces;
+
+namespace Identity.API.Infrastructure.Identity.Roles.Endpoints
 {
     public static class GetRoleByIdEndpoint
     {

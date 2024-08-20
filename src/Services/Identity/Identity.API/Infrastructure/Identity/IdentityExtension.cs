@@ -1,4 +1,5 @@
-﻿using Identity.API.Infrastructure.Identity.Persistence;
+﻿using BuildingBlocksClient.Application.Identity.Interfaces;
+using Identity.API.Infrastructure.Identity.Persistence;
 using Identity.API.Infrastructure.Identity.Roles;
 using Identity.API.Infrastructure.Identity.Roles.Endpoints;
 using Identity.API.Infrastructure.Identity.Roles.Services;
