@@ -5,8 +5,8 @@
         public async Task InvokeAsync(HttpContext context)
         {
             string requestPath = context.Request.Path.Value!;
-            if (requestPath.Contains("account/login", StringComparison.InvariantCultureIgnoreCase)
-                || requestPath.Contains("account/register", StringComparison.InvariantCultureIgnoreCase)
+            if (requestPath.Contains("identity/tokens", StringComparison.InvariantCultureIgnoreCase)
+                || requestPath.Contains("identity/tokens/refresh", StringComparison.InvariantCultureIgnoreCase)
                 || requestPath.Equals("/"))
             {
                 await next(context);

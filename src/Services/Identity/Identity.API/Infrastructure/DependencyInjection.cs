@@ -1,6 +1,5 @@
-﻿using BuildingBlocksClient.Infrastructure.Storage;
+﻿using BuildingBlocksClient.Shared.Interfaces;
 using Identity.API.Infrastructure.Identity;
-using Identity.API.Infrastructure.Jwt;
 using Identity.API.Infrastructure.Storage;
 
 namespace Identity.API.Infrastructure
@@ -11,7 +10,6 @@ namespace Identity.API.Infrastructure
         {
             builder.Services.AddScoped<IFileService, FileService>();
 
-            builder.Services.ConfigureJwt(builder.Configuration);
             builder.Services.ConfigureIdentity(builder.Configuration);
             builder.Services.AddAntiforgery();
             return builder;

@@ -1,4 +1,4 @@
-﻿using BuildingBlocksClient.Infrastructure.Storage;
+﻿using BuildingBlocksClient.Shared.Interfaces;
 
 namespace Identity.API.Infrastructure.Storage
 {
@@ -12,7 +12,7 @@ namespace Identity.API.Infrastructure.Storage
             foreach (var file in files)
             {
                 var uploadResult = new ImageUpload();
-          
+
                 var uploadedFileName = file.FileName;
                 var extension = Path.GetExtension(file.FileName);
                 var storedFileName = Guid.NewGuid().ToString() + extension;

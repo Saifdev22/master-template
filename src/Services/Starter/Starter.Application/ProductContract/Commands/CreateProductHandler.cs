@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Application.CQRS;
-
-namespace Starter.Application.ProductContract.Commands
+﻿namespace Starter.Application.ProductContract.Commands
 {
     public class CreateProductHandler(IApplicationDbContext dbContext)
         : ICommandHandler<CreateProductCommand, CreateProductResult>

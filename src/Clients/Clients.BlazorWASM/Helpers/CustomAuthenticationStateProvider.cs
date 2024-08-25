@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using static BuildingBlocksClient.Identity.DTOs.TokenDTO;
 
 namespace Clients.BlazorWASM.Helpers
 {
@@ -12,7 +13,7 @@ namespace Clients.BlazorWASM.Helpers
             var stringToken = await _localStorageService.GetToken();
             if (string.IsNullOrWhiteSpace(stringToken)) return await Task.FromResult(new AuthenticationState(anonymous));
 
-            var deserializeToken = Serialization.DeserializeJsonString<TokenSession>(stringToken);
+            var deserializeToken = Serialization.DeserializeJsonString<TokenResponse>(stringToken);
             if (deserializeToken == null) return await Task.FromResult(new AuthenticationState(anonymous));
 
             var getUserClaims = GetClaimsFromToken(deserializeToken.Token!);
@@ -22,11 +23,11 @@ namespace Clients.BlazorWASM.Helpers
             return await Task.FromResult(new AuthenticationState(claimsPrincipal));
         }
 
-        public async Task UpdateAuthenticationState(TokenSession session)
+        public async Task UpdateAuthenticationState(TokenResponse session)
         {
-            ClaimsPrincipal claimsPrincipal = new();
+            ClaimsPrincipal claimsPrincipal;
 
-            if (session.Token != null)
+            if (!string.IsNullOrEmpty(session.Token))
             {
                 var serializeSession = Serialization.SerializeObj(session);
                 await _localStorageService.SetToken(serializeSession);
@@ -44,14 +45,20 @@ namespace Clients.BlazorWASM.Helpers
 
         public static ClaimsPrincipal SetClaimPrincipal(CustomUserClaim model)
         {
-            return new ClaimsPrincipal(new ClaimsIdentity(
-                new List<Claim>
-                {
-                    new(ClaimTypes.NameIdentifier, model.Id!),
-                    new(ClaimTypes.Name, model.Username!),
-                    new(ClaimTypes.Email, model.Email!),
-                    new(ClaimTypes.Role, model.Role!),
-                }, "JwtAuth"));
+            return new ClaimsPrincipal
+            (
+                new ClaimsIdentity
+                (
+                    new List<Claim>
+                    {
+                        new(ClaimTypes.NameIdentifier, model.Id),
+                        new(ClaimTypes.Name, model.Username),
+                        new(ClaimTypes.Email, model.Email),
+                        new(ClaimTypes.Role, model.Role),
+                        new("tenant", model.Tenant),
+                    }, "JwtAuth"
+                )
+            );
         }
 
         public static CustomUserClaim GetClaimsFromToken(string jwtToken)
@@ -60,15 +67,15 @@ namespace Clients.BlazorWASM.Helpers
 
             var handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(jwtToken);
-
             var claims = token.Claims;
 
             string Id = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value!;
             string Name = claims.First(c => c.Type == ClaimTypes.Name).Value!;
             string Email = claims.First(c => c.Type == ClaimTypes.Email).Value!;
             string Role = claims.First(c => c.Type == ClaimTypes.Role).Value!;
+            string Tenant = claims.First(c => c.Type == "tenant").Value!;
 
-            return new CustomUserClaim(Id!, Name!, Email!, Role!);
+            return new CustomUserClaim(Id!, Name!, Email!, Role!, Tenant!);
         }
 
     }

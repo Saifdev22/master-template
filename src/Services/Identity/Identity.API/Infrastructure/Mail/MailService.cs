@@ -1,5 +1,5 @@
-﻿using BuildingBlocksClient.Application.Identity.DTOs;
-using BuildingBlocksClient.Application.Identity.Interfaces;
+﻿using BuildingBlocksClient.Shared.DTOs;
+using BuildingBlocksClient.Shared.Interfaces;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -10,7 +10,7 @@ namespace Identity.API.Infrastructure.Mail
     public class MailService(IOptions<MailOptions> settings, ILogger<MailService> _logger) : IMailService
     {
         private readonly MailOptions _settings = settings.Value;
-    
+
         public async Task SendAsync(MailRequest request, CancellationToken ct)
         {
             using var email = new MimeMessage();

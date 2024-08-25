@@ -1,4 +1,4 @@
-﻿using BuildingBlocksClient.Application.Identity.Interfaces;
+﻿using BuildingBlocksClient.Shared.Interfaces;
 
 namespace Identity.API.Infrastructure.Mail
 {

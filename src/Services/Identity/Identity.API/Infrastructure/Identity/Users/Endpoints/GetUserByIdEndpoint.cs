@@ -1,4 +1,4 @@
-﻿using BuildingBlocksClient.Application.Identity.Interfaces;
+﻿using BuildingBlocksClient.Identity.Interfaces;
 
 namespace Identity.API.Infrastructure.Identity.Users.Endpoints
 {

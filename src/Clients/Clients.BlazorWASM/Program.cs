@@ -1,6 +1,4 @@
 using Blazored.LocalStorage;
-using BuildingBlocksClient.Application.Identity.Interfaces;
-using BuildingBlocksClient.Application.Starter.Interfaces;
 using Clients.BlazorWASM;
 using Clients.BlazorWASM.Services.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -24,7 +22,7 @@ builder.Services.AddScoped<CustomHttpClient>();
 builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
-builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IJWTService, JWTService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();

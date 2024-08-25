@@ -1,14 +1,11 @@
 ﻿using System.Net;
-using BuildingBlocksClient.Application.Identity.DTOs;
-using BuildingBlocksClient.Application.Identity.Interfaces;
+using System.Net.Http.Headers;
+using static BuildingBlocksClient.Identity.DTOs.TokenDTO;
 
 namespace Clients.BlazorWASM.Helpers
 {
-    public class CustomHttpDelegate(CustomHttpClient _httpClient,
-        LocalStorageService _localstorageService,
-        IAccountService _accountService) : DelegatingHandler
+    public class CustomHttpDelegate(LocalStorageService _localStorageService, IJWTService _jwtService) : DelegatingHandler
     {
-
         protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             bool loginUrl = request.RequestUri!.AbsoluteUri.Contains("login");
@@ -20,7 +17,7 @@ namespace Clients.BlazorWASM.Helpers
             var result = await base.SendAsync(request, cancellationToken);
             if (result.StatusCode == HttpStatusCode.Unauthorized)
             {
-                var stringToken = await _localstorageService.GetToken();
+                var stringToken = await _localStorageService.GetToken();
                 if (stringToken == null) return result;
 
                 string token = string.Empty;
@@ -30,15 +27,32 @@ namespace Clients.BlazorWASM.Helpers
                 }
                 catch { }
 
-                var deserilaizedToken = Serialization.DeserializeJsonString<TokenSession>(stringToken);
-                if (deserilaizedToken is null) return result;
+                var deserializedToken = Serialization.DeserializeJsonString<TokenResponse>(stringToken);
+                if (deserializedToken is null) return result;
 
                 if (string.IsNullOrEmpty(token))
                 {
-                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", deserilaizedToken.Token);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", deserializedToken.Token);
                     return await base.SendAsync(request, cancellationToken);
                 }
+
+                // Call for refresh token.
+                var newJwtToken = await GetRefreshToken(deserializedToken, cancellationToken);
+                if (string.IsNullOrEmpty(newJwtToken.Token)) return result;
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", newJwtToken.Token);
+                return await base.SendAsync(request, cancellationToken);
+
             }
+
+            return result;
+        }
+
+        private async Task<TokenResponse> GetRefreshToken(TokenResponse tokens, CancellationToken cancellationToken)
+        {
+            var result = await _jwtService.GetTokenWithRefreshToken(new TokenRequest(tokens.Token, tokens.RefreshToken), "N/A", cancellationToken);
+            string serializedToken = Serialization.SerializeObj(new TokenResponse() { Token = result.Token, RefreshToken = result.RefreshToken, RefreshTokenExpiryTime = result.RefreshTokenExpiryTime });
+            await _localStorageService.SetToken(serializedToken);
             return result;
         }
 

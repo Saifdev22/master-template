@@ -1,5 +1,5 @@
-﻿using BuildingBlocksClient.Application.Identity.DTOs;
-using BuildingBlocksClient.Application.Identity.Interfaces;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Identity.Interfaces;
 
 namespace Identity.API.Infrastructure.Identity.Users.Endpoints
 {

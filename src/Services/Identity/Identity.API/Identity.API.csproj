@@ -22,11 +22,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocksClient\BuildingBlocksClient.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="images\" />
     <Folder Include="Infrastructure\Identity\Persistence\Migrations\" />
+    <Folder Include="images\" />
   </ItemGroup>
 
 </Project>

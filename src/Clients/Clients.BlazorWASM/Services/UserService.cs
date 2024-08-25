@@ -1,8 +1,6 @@
-﻿using BuildingBlocksClient.Application.Identity.DTOs;
-using BuildingBlocksClient.Application.Identity.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.Net.Http.Json;
-using static BuildingBlocksClient.Application.Starter.DTOs.ServiceResponses;
+using static BuildingBlocksClient.Shared.DTOs.ServiceResponses;
 
 namespace Clients.BlazorWASM.Services
 {
@@ -47,6 +45,15 @@ namespace Clients.BlazorWASM.Services
         {
             throw new NotImplementedException();
         }
+
+        //public async Task<GeneralResponse> CreateAccount(CreateUserDTO user)
+        //{
+        //    var httpclient = _httpClient.GetPublicHttpClient();
+
+        //    var response = await httpclient.PostAsJsonAsync($"{baseUrl}/register", user);
+        //    var result = await response.Content.ReadFromJsonAsync<GeneralResponse>();
+        //    return result!;
+        //}
     }
 
 

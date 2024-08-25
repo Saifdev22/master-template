@@ -1,11 +1,10 @@
-﻿using BuildingBlocksClient.Application.Identity.DTOs;
-using BuildingBlocksClient.Application.Identity.Interfaces;
-using BuildingBlocksClient.Infrastructure.Storage;
+﻿using BuildingBlocksClient.Identity.DTOs;
+using BuildingBlocksClient.Identity.Interfaces;
+using BuildingBlocksClient.Shared.Interfaces;
 using Identity.API.Infrastructure.Identity.Roles;
-using Identity.API.Infrastructure.Storage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using static BuildingBlocksClient.Application.Starter.DTOs.ServiceResponses;
+using static BuildingBlocksClient.Shared.DTOs.ServiceResponses;
 
 namespace Identity.API.Infrastructure.Identity.Users.Services
 {
@@ -54,7 +53,6 @@ namespace Identity.API.Infrastructure.Identity.Users.Services
 
                 TenantId = userDTO.TenantId!,
                 Gender = userDTO.Gender!,
-                DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
                 ProfileImage = BitConverter.GetBytes(100),
                 ImageUrl = await _fileService.HandleFileUploads(files),
                 Notes = userDTO.Notes!,
@@ -85,6 +83,40 @@ namespace Identity.API.Infrastructure.Identity.Users.Services
             }
 
         }
+
+        //public async Task<GeneralResponse> CreateAccount(RegisterDTO userDTO)
+        //{
+        //    if (userDTO is null) return new GeneralResponse(false, "Model is empty");
+
+        //    var newUser = new IdentityAppUser(userDTO.Username, userDTO.Email)
+        //    {
+        //        TenantId = userDTO.TenantId,
+        //        PasswordHash = userDTO.Password,
+        //    };
+
+        //    var user = await _userManager.FindByEmailAsync(newUser.Email!);
+        //    if (user is not null) return new GeneralResponse(false, "User registered exists.");
+
+        //    var createUser = await _userManager.CreateAsync(newUser!, userDTO.Password);
+        //    if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
+        //    //Assign Default Role : Admin to first registrar; rest is user
+        //    var checkAdmin = await _roleManager.FindByNameAsync("Admin");
+        //    if (checkAdmin is null)
+        //    {
+        //        await _roleManager.CreateAsync(new IdentityAppRole("Admin", "Test"));
+        //        await _userManager.AddToRoleAsync(newUser, "Admin");
+        //        return new GeneralResponse(true, "Account Created");
+        //    }
+        //    else
+        //    {
+        //        var checkUser = await _roleManager.FindByNameAsync("User");
+        //        if (checkUser is null)
+        //            await _roleManager.CreateAsync(new IdentityAppRole("User", "Test2"));
+
+        //        await _userManager.AddToRoleAsync(newUser, "User");
+        //        return new GeneralResponse(true, "Account Created");
+        //    }
+        //}
 
         public async Task<GeneralResponse> UpdateUser(GetUserDTO userDTO)
         {

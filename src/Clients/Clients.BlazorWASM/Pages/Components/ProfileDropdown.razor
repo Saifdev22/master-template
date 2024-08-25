@@ -33,7 +33,7 @@
 
     async Task LogoutClicked()
     {
-        var logoutModel = new TokenSession();
+        var logoutModel = new TokenResponse();
         var customAuthStateProvider = (CustomAuthenticationStateProvider)_authenticationStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
         _navigationManager.NavigateTo("/identity/account/login", replace: true, forceLoad: true);

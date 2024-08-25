@@ -1,5 +1,10 @@
-﻿global using BuildingBlocksClient.Application.Identity.DTOs;
-global using BuildingBlocksClient.Application.Identity.Interfaces;
-global using BuildingBlocksClient.Application.Starter.Interfaces;
+﻿global using BuildingBlocksClient.Identity.DTOs;
+global using BuildingBlocksClient.Identity.Interfaces;
+global using BuildingBlocksClient.Starter.DTOs;
+global using BuildingBlocksClient.Starter.Interfaces;
+
+global using static BuildingBlocksClient.Identity.DTOs.TokenDTO;
+
 global using Clients.BlazorWASM.Helpers;
 global using Clients.BlazorWASM.Services;
+

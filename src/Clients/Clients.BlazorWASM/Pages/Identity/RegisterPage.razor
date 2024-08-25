@@ -1,4 +1,5 @@
 ﻿@page "/identity/account/register"
+@using Microsoft.AspNetCore.Http
 
 @layout AuthLayout
 @attribute [AllowAnonymous]
@@ -12,7 +13,7 @@
     </div>
     <EditForm Enhance Model="User" OnValidSubmit="HandleRegistration">
         <DataAnnotationsValidator />
-        <div class="input-box">
+@*         <div class="input-box">
             <InputText @bind-Value="User.Username" class="input-field" placeholder="Full Name" type="text" autocomplete="off"></InputText>
             <ValidationMessage For="@(() => User.Username)" Text="FullName required!" Class="error-message" />
         </div>
@@ -27,7 +28,7 @@
 		 <div class="input-box">
             <input type="password" @bind="User.ConfirmPassword" class="input-field" placeholder="Confirm Password" autocomplete="off" />
             <ValidationMessage For="@(() => User.ConfirmPassword)" Text="Confirm Password required." Class="error-message" />
-        </div>
+        </div> *@
         <div class="input-submit">
             @if (ShowLoadingButton)
             {
@@ -198,7 +199,9 @@
 @code {
     public bool ShowLoadingButton { get; set; } = false;
 
-    RegisterDTO User = new RegisterDTO();
+    CreateUserDTO User = new CreateUserDTO();
+    IFormFileCollection? myfiles = null;
+
 
     [CascadingParameter]
     public Task<AuthenticationState>? AuthenticationState { get; set; }
@@ -212,7 +215,7 @@
     {
         ShowLoadingButton = true;
 
-        var result = await _accountService.CreateAccount(User);
+        var result = await _userService.CreateUser(User, myfiles!);
         if (result.Flag)
         {
             await _js.InvokeVoidAsync("alert", "Sucess");

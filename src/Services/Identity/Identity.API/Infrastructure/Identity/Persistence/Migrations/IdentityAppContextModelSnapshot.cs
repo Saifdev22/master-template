@@ -54,21 +54,21 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "26ec6b6c-0638-4ec0-a05a-6c51637c7c00",
+                            Id = "07ee934d-979e-446d-b9ae-5f52c2fa6784",
                             Name = "Master",
                             NormalizedName = "MASTER",
                             Notes = "Master role with complete software control."
                         },
                         new
                         {
-                            Id = "3843b21f-510c-4862-93da-2ee86a11dac7",
+                            Id = "e5c22b03-6542-40ea-a031-593d763fbb45",
                             Name = "Admin",
                             NormalizedName = "ADMIN",
                             Notes = "Administrator role with limited permissions."
                         },
                         new
                         {
-                            Id = "9aa15bfb-b7f9-48d5-bf1c-b1fe5e18a1b3",
+                            Id = "22001a88-264d-4ce0-8591-c985653d8303",
                             Name = "User",
                             NormalizedName = "USER",
                             Notes = "User role with limited permissions."
@@ -87,8 +87,8 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly>("DateOfBirth")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -102,7 +102,6 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -123,7 +122,6 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -137,6 +135,12 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 
                     b.Property<byte[]>("ProfileImage")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -167,10 +171,10 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5bee18a1-7d35-4433-a44e-8665d1031e30",
+                            Id = "d7d8d960-0d8e-4d63-a295-ec4fffb9ee90",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "98cb88d6-53b2-4dfd-9513-8fab0d2b0809",
-                            DateOfBirth = new DateOnly(1980, 1, 1),
+                            ConcurrencyStamp = "191806dd-ffb6-436e-af70-bdd4ccde7fee",
+                            DateOfBirth = new DateTime(2024, 8, 23, 1, 57, 3, 871, DateTimeKind.Utc).AddTicks(9662),
                             Email = "master@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Male",
@@ -180,7 +184,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                             NormalizedEmail = "MASTER",
                             NormalizedUserName = "MASTER",
                             Notes = "System Master",
-                            PasswordHash = "AQAAAAIAAYagAAAAEABD9+VQCtRBI9+d014sku81ZS+aUsmWRKJlmzji+5ZU9J/+qrm6ViAdx7YDQU9t+A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECaBa5hciv6WJ0sXKGwI/nRhmFbPmD0WvhHrp3bAtIB733FWONRn6Ws0ZRWDWTWP5Q==",
                             PhoneNumberConfirmed = false,
                             ProfileImage = new byte[] { 100, 0, 0, 0 },
                             SecurityStamp = "",
@@ -190,10 +194,10 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "ee73a14a-9ff2-40d0-8b73-1f76ec1db304",
+                            Id = "d63d3a99-afcd-4c0a-907c-e96acef0ce50",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e002855-e869-43d8-b9e0-f1eaecc974f8",
-                            DateOfBirth = new DateOnly(1982, 10, 11),
+                            ConcurrencyStamp = "1efdc423-b26a-4c6e-b5b1-73886173d2d6",
+                            DateOfBirth = new DateTime(2024, 8, 23, 1, 57, 3, 928, DateTimeKind.Utc).AddTicks(322),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Male",
@@ -203,7 +207,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                             NormalizedEmail = "ADMIN",
                             NormalizedUserName = "ADMIN",
                             Notes = "System Administrator",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHAXMaeEpefmHK42Gp+GWoDzV7YT3olcXrtL/O4KKvNGZr1W/iR/SBNqZopvojEbMA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKeOHwMkhAAItWt+IJXUyVogCU5clQaGfNWUs+J1qJTw+/kQpasi1iA2MSCC1MBLng==",
                             PhoneNumberConfirmed = false,
                             ProfileImage = new byte[] { 200, 0, 0, 0 },
                             SecurityStamp = "",
@@ -213,10 +217,10 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         },
                         new
                         {
-                            Id = "767cba8b-62c3-4474-9c00-713db46ef2ef",
+                            Id = "e6116e71-c410-44ce-a1cd-77aabf01561f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e76ed4e4-68ee-442f-8805-d8023b53be8f",
-                            DateOfBirth = new DateOnly(1994, 11, 2),
+                            ConcurrencyStamp = "7752c748-6849-4018-a35e-671bf6b84604",
+                            DateOfBirth = new DateTime(2024, 8, 23, 1, 57, 3, 983, DateTimeKind.Utc).AddTicks(8951),
                             Email = "user@example.com",
                             EmailConfirmed = true,
                             Gender = "Female",
@@ -226,7 +230,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                             NormalizedEmail = "USER",
                             NormalizedUserName = "USER",
                             Notes = "Regular User",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL16uWoJSke4TplxKnGy3elWUZWrMjg8XB+kunkpYU9M3GFTb6oXg/lj8SBRQXehPw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEASpb2dYMg6fM2Ots6KAhY0ruiZdZ/uwqrEpGRUe4SLwRWV/iVtsia4uQupseO1MjA==",
                             PhoneNumberConfirmed = false,
                             ProfileImage = new byte[] { 44, 1, 0, 0 },
                             SecurityStamp = "",
@@ -325,18 +329,18 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "5bee18a1-7d35-4433-a44e-8665d1031e30",
-                            RoleId = "26ec6b6c-0638-4ec0-a05a-6c51637c7c00"
+                            UserId = "d7d8d960-0d8e-4d63-a295-ec4fffb9ee90",
+                            RoleId = "07ee934d-979e-446d-b9ae-5f52c2fa6784"
                         },
                         new
                         {
-                            UserId = "ee73a14a-9ff2-40d0-8b73-1f76ec1db304",
-                            RoleId = "3843b21f-510c-4862-93da-2ee86a11dac7"
+                            UserId = "d63d3a99-afcd-4c0a-907c-e96acef0ce50",
+                            RoleId = "e5c22b03-6542-40ea-a031-593d763fbb45"
                         },
                         new
                         {
-                            UserId = "767cba8b-62c3-4474-9c00-713db46ef2ef",
-                            RoleId = "9aa15bfb-b7f9-48d5-bf1c-b1fe5e18a1b3"
+                            UserId = "e6116e71-c410-44ce-a1cd-77aabf01561f",
+                            RoleId = "22001a88-264d-4ce0-8591-c985653d8303"
                         });
                 });
 

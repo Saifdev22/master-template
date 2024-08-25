@@ -1,4 +1,5 @@
-﻿using BuildingBlocksClient.Application.Identity.DTOs;
+﻿using System.Net.Http.Headers;
+using static BuildingBlocksClient.Identity.DTOs.TokenDTO;
 
 namespace Clients.BlazorWASM.Helpers
 {
@@ -11,11 +12,10 @@ namespace Clients.BlazorWASM.Helpers
             var stringToken = await localStorageService.GetToken();
             if (string.IsNullOrEmpty(stringToken)) return client;
 
-            var deserializeToken = Serialization.DeserializeJsonString<TokenSession>(stringToken);
+            var deserializeToken = Serialization.DeserializeJsonString<TokenResponse>(stringToken);
             if (deserializeToken == null) return client;
 
-            client.DefaultRequestHeaders.Authorization =
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", deserializeToken.Token);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", deserializeToken.Token);
 
             return client;
         }
