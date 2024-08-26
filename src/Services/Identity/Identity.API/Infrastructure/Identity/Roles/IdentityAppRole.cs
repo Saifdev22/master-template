@@ -8,7 +8,6 @@ namespace Identity.API.Infrastructure.Identity.Roles
             : base(name)
         {
             Notes = notes;
-            NormalizedName = name.ToUpperInvariant();
         }
         public string? Notes { get; set; }
     }

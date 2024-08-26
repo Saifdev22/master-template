@@ -1,5 +1,4 @@
 ﻿using Identity.API.Infrastructure.Identity.Persistence.Configurations;
-using Identity.API.Infrastructure.Identity.Persistence.SeedData;
 using Identity.API.Infrastructure.Identity.Roles;
 using Identity.API.Infrastructure.Identity.Users;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -14,7 +13,7 @@ namespace Identity.API.Infrastructure.Identity.Persistence
             base.OnModelCreating(builder);
 
             builder.ApplyCustomTableAndSchemaNames();
-            IdentitySeedData.SeedData(builder);
+            //IdentitySeedData.SeedData(builder);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Identity.API.Infrastructure.Identity.Roles.Endpoints
                 await roleService.DeleteRole(id);
             })
             .WithName(nameof(DeleteRoleEndpoint))
-            .WithSummary("Delete a role by ID.")
+            .WithSummary("Delete role by Id.")
             .WithDescription("Remove a role from the system by its ID.");
         }
     }

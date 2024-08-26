@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using static BuildingBlocksClient.Identity.DTOs.TokenDTO;
 
 namespace Clients.BlazorWASM.Helpers
 {
@@ -18,6 +17,14 @@ namespace Clients.BlazorWASM.Helpers
 
             var getUserClaims = GetClaimsFromToken(deserializeToken.Token!);
             if (getUserClaims == null) return await Task.FromResult(new AuthenticationState(anonymous));
+
+            // Checks the exp field of the token
+            var expiry = getUserClaims.exp;
+            if (expiry == null) return await Task.FromResult(new AuthenticationState(anonymous));
+
+            // The exp field is in Unix time
+            var datetime = DateTimeOffset.FromUnixTimeSeconds(long.Parse(expiry));
+            if (datetime.UtcDateTime <= DateTime.UtcNow) return await Task.FromResult(new AuthenticationState(anonymous));
 
             var claimsPrincipal = SetClaimPrincipal(getUserClaims);
             return await Task.FromResult(new AuthenticationState(claimsPrincipal));
@@ -68,14 +75,15 @@ namespace Clients.BlazorWASM.Helpers
             var handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(jwtToken);
             var claims = token.Claims;
-
+            
             string Id = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value!;
             string Name = claims.First(c => c.Type == ClaimTypes.Name).Value!;
             string Email = claims.First(c => c.Type == ClaimTypes.Email).Value!;
             string Role = claims.First(c => c.Type == ClaimTypes.Role).Value!;
             string Tenant = claims.First(c => c.Type == "tenant").Value!;
+            string exp = claims.First(claim => claim.Type.Equals("exp")).Value;
 
-            return new CustomUserClaim(Id!, Name!, Email!, Role!, Tenant!);
+            return new CustomUserClaim(Id!, Name!, Email!, Role!, Tenant!, exp);
         }
 
     }

@@ -50,29 +50,6 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", "identity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "07ee934d-979e-446d-b9ae-5f52c2fa6784",
-                            Name = "Master",
-                            NormalizedName = "MASTER",
-                            Notes = "Master role with complete software control."
-                        },
-                        new
-                        {
-                            Id = "e5c22b03-6542-40ea-a031-593d763fbb45",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN",
-                            Notes = "Administrator role with limited permissions."
-                        },
-                        new
-                        {
-                            Id = "22001a88-264d-4ce0-8591-c985653d8303",
-                            Name = "User",
-                            NormalizedName = "USER",
-                            Notes = "User role with limited permissions."
-                        });
                 });
 
             modelBuilder.Entity("Identity.API.Infrastructure.Identity.Users.IdentityAppUser", b =>
@@ -167,77 +144,6 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "identity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "d7d8d960-0d8e-4d63-a295-ec4fffb9ee90",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "191806dd-ffb6-436e-af70-bdd4ccde7fee",
-                            DateOfBirth = new DateTime(2024, 8, 23, 1, 57, 3, 871, DateTimeKind.Utc).AddTicks(9662),
-                            Email = "master@gmail.com",
-                            EmailConfirmed = true,
-                            Gender = "Male",
-                            ImageUrl = "Image1",
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MASTER",
-                            NormalizedUserName = "MASTER",
-                            Notes = "System Master",
-                            PasswordHash = "AQAAAAIAAYagAAAAECaBa5hciv6WJ0sXKGwI/nRhmFbPmD0WvhHrp3bAtIB733FWONRn6Ws0ZRWDWTWP5Q==",
-                            PhoneNumberConfirmed = false,
-                            ProfileImage = new byte[] { 100, 0, 0, 0 },
-                            SecurityStamp = "",
-                            TenantId = "tenant_1",
-                            TwoFactorEnabled = false,
-                            UserName = "Master"
-                        },
-                        new
-                        {
-                            Id = "d63d3a99-afcd-4c0a-907c-e96acef0ce50",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1efdc423-b26a-4c6e-b5b1-73886173d2d6",
-                            DateOfBirth = new DateTime(2024, 8, 23, 1, 57, 3, 928, DateTimeKind.Utc).AddTicks(322),
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            Gender = "Male",
-                            ImageUrl = "Image2",
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN",
-                            NormalizedUserName = "ADMIN",
-                            Notes = "System Administrator",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKeOHwMkhAAItWt+IJXUyVogCU5clQaGfNWUs+J1qJTw+/kQpasi1iA2MSCC1MBLng==",
-                            PhoneNumberConfirmed = false,
-                            ProfileImage = new byte[] { 200, 0, 0, 0 },
-                            SecurityStamp = "",
-                            TenantId = "tenant_1",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "e6116e71-c410-44ce-a1cd-77aabf01561f",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7752c748-6849-4018-a35e-671bf6b84604",
-                            DateOfBirth = new DateTime(2024, 8, 23, 1, 57, 3, 983, DateTimeKind.Utc).AddTicks(8951),
-                            Email = "user@example.com",
-                            EmailConfirmed = true,
-                            Gender = "Female",
-                            ImageUrl = "Image3",
-                            IsActive = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER",
-                            NormalizedUserName = "USER",
-                            Notes = "Regular User",
-                            PasswordHash = "AQAAAAIAAYagAAAAEASpb2dYMg6fM2Ots6KAhY0ruiZdZ/uwqrEpGRUe4SLwRWV/iVtsia4uQupseO1MjA==",
-                            PhoneNumberConfirmed = false,
-                            ProfileImage = new byte[] { 44, 1, 0, 0 },
-                            SecurityStamp = "",
-                            TenantId = "tenant_1",
-                            TwoFactorEnabled = false,
-                            UserName = "User"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -325,23 +231,6 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", "identity");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "d7d8d960-0d8e-4d63-a295-ec4fffb9ee90",
-                            RoleId = "07ee934d-979e-446d-b9ae-5f52c2fa6784"
-                        },
-                        new
-                        {
-                            UserId = "d63d3a99-afcd-4c0a-907c-e96acef0ce50",
-                            RoleId = "e5c22b03-6542-40ea-a031-593d763fbb45"
-                        },
-                        new
-                        {
-                            UserId = "e6116e71-c410-44ce-a1cd-77aabf01561f",
-                            RoleId = "22001a88-264d-4ce0-8591-c985653d8303"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

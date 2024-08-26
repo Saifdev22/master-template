@@ -14,8 +14,6 @@ namespace Identity.API.Infrastructure.Identity.Users
             : base(username)
         {
             Email = email;
-            NormalizedUserName = username.ToUpperInvariant();
-            NormalizedEmail = email.ToUpperInvariant();
         }
 
         public string TenantId { get; set; } = default!;
@@ -30,3 +28,5 @@ namespace Identity.API.Infrastructure.Identity.Users
 
     }
 }
+
+

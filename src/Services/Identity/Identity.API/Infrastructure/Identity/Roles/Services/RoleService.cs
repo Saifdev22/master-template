@@ -12,7 +12,7 @@ namespace Identity.API.Infrastructure.Identity.Roles.Services
             return await Task.Run
             (
                 () => _roleManager.Roles
-                .Select(role => new RoleDTO { Id = role.Id, Name = role.Name! })
+                .Select(role => new RoleDTO { Id = role.Id, Name = role.Name!, Notes = role.Notes })
                 .ToList()
             );
         }
@@ -20,9 +20,9 @@ namespace Identity.API.Infrastructure.Identity.Roles.Services
         public async Task<RoleDTO?> GetRoleById(string id)
         {
             IdentityAppRole? role = await _roleManager.FindByIdAsync(id);
-            _ = role ?? throw new Exception("Role not found");
+            _ = role ?? throw new Exception("Role not found.");
 
-            return new RoleDTO { Id = role.Id, Name = role.Name! };
+            return new RoleDTO { Id = role.Id, Name = role.Name!, Notes = role.Notes };
         }
 
         public async Task<RoleDTO> CreateOrUpdateRole(RoleDTO command)
@@ -48,10 +48,10 @@ namespace Identity.API.Infrastructure.Identity.Roles.Services
         public async Task<GeneralResponse> DeleteRole(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
-            _ = role ?? throw new Exception("role not found");
+            _ = role ?? throw new Exception("Role not found.");
             await _roleManager.DeleteAsync(role);
 
-            return new GeneralResponse(true, "Suceess");
+            return new GeneralResponse(true, "Success");
         }
 
     }

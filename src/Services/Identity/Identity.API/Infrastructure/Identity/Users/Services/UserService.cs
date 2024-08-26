@@ -48,15 +48,8 @@ namespace Identity.API.Infrastructure.Identity.Users.Services
 
             var newUser = new IdentityAppUser(userDTO.Username, userDTO.Email)
             {
-                PasswordHash = userDTO.Password,
-                PhoneNumber = userDTO.PhoneNumber,
-
                 TenantId = userDTO.TenantId!,
-                Gender = userDTO.Gender!,
-                ProfileImage = BitConverter.GetBytes(100),
                 ImageUrl = await _fileService.HandleFileUploads(files),
-                Notes = userDTO.Notes!,
-                //IsActive = userDTO.IsActive
             };
 
             var user = await _userManager.FindByEmailAsync(newUser.Email!);
@@ -69,54 +62,20 @@ namespace Identity.API.Infrastructure.Identity.Users.Services
             var checkAdmin = await _roleManager.FindByNameAsync("Admin");
             if (checkAdmin is null)
             {
-                await _roleManager.CreateAsync(new IdentityAppRole("Admin", "s"));
+                await _roleManager.CreateAsync(new IdentityAppRole("Admin", null));
                 await _userManager.AddToRoleAsync(newUser, "Admin");
-                return new GeneralResponse(true, "Account Created");
+                return new GeneralResponse(true, "Account Created.");
             }
             else
             {
                 var checkUser = await _roleManager.FindByNameAsync("User");
                 if (checkUser is null) await _roleManager.CreateAsync(new IdentityAppRole("User", "sed"));
 
-                await _userManager.AddToRoleAsync(newUser, "User");
-                return new GeneralResponse(true, "Account Created");
+                await _userManager.AddToRoleAsync(newUser, "Admin");
+                return new GeneralResponse(true, "Account Created.");
             }
 
         }
-
-        //public async Task<GeneralResponse> CreateAccount(RegisterDTO userDTO)
-        //{
-        //    if (userDTO is null) return new GeneralResponse(false, "Model is empty");
-
-        //    var newUser = new IdentityAppUser(userDTO.Username, userDTO.Email)
-        //    {
-        //        TenantId = userDTO.TenantId,
-        //        PasswordHash = userDTO.Password,
-        //    };
-
-        //    var user = await _userManager.FindByEmailAsync(newUser.Email!);
-        //    if (user is not null) return new GeneralResponse(false, "User registered exists.");
-
-        //    var createUser = await _userManager.CreateAsync(newUser!, userDTO.Password);
-        //    if (!createUser.Succeeded) return new GeneralResponse(false, "Error occured.. please try again");
-        //    //Assign Default Role : Admin to first registrar; rest is user
-        //    var checkAdmin = await _roleManager.FindByNameAsync("Admin");
-        //    if (checkAdmin is null)
-        //    {
-        //        await _roleManager.CreateAsync(new IdentityAppRole("Admin", "Test"));
-        //        await _userManager.AddToRoleAsync(newUser, "Admin");
-        //        return new GeneralResponse(true, "Account Created");
-        //    }
-        //    else
-        //    {
-        //        var checkUser = await _roleManager.FindByNameAsync("User");
-        //        if (checkUser is null)
-        //            await _roleManager.CreateAsync(new IdentityAppRole("User", "Test2"));
-
-        //        await _userManager.AddToRoleAsync(newUser, "User");
-        //        return new GeneralResponse(true, "Account Created");
-        //    }
-        //}
 
         public async Task<GeneralResponse> UpdateUser(GetUserDTO userDTO)
         {

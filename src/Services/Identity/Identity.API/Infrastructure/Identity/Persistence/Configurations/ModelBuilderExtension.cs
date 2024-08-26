@@ -46,6 +46,12 @@ namespace Identity.API.Infrastructure.Identity.Persistence.Configurations
                 entity.ToTable("UserTokens", CustomSchema);
             });
 
+            //builder.Entity<IdentityUser>().Ignore(c => c.AccessFailedCount)
+            //                       .Ignore(c => c.LockoutEnabled)
+            //                       .Ignore(c => c.NormalizedEmail)
+            //                       .Ignore(c => c.Roles)
+            //                       .Ignore(c => c.TwoFactorEnabled);
+
         }
     }
 }

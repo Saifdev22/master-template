@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-using static BuildingBlocksClient.Identity.DTOs.TokenDTO;
 
 namespace Clients.BlazorWASM.Services
 {

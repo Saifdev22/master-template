@@ -11,8 +11,8 @@ namespace Identity.API.Infrastructure.Identity.Roles.Endpoints
                 return await roleService.GetRoleById(id);
             })
             .WithName(nameof(GetRoleByIdEndpoint))
-            .WithSummary("Get role by ID.")
-            .WithDescription("Retrieve the details of a role by its ID.");
+            .WithSummary("Get role by Id.")
+            .WithDescription("Get the details of a role by its Id.");
         }
     }
 }

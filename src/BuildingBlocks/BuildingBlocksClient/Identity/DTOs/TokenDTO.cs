@@ -12,6 +12,6 @@
             public bool Flag { get; set; } = true;
         }
 
-        public record CustomUserClaim(string Id = null!, string Username = null!, string Email = null!, string Role = null!, string Tenant = null!);
+        public record CustomUserClaim(string Id = null!, string Username = null!, string Email = null!, string Role = null!, string Tenant = null!, string exp = null!);
     }
 }

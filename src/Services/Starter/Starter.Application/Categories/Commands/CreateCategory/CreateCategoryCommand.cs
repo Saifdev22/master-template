@@ -1,5 +1,4 @@
-﻿using BuildingBlocksClient.Starter.DTOs;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Starter.Application.Categories.Commands.CreateCategory
 {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace BuildingBlocksClient.Identity.DTOs
+﻿namespace BuildingBlocksClient.Identity.DTOs
 {
     public class GetUserDTO
     {
@@ -20,11 +18,10 @@ namespace BuildingBlocksClient.Identity.DTOs
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
+
         public string? TenantId { get; set; } = default!;
-        public Guid RoleId { get; set; }
-        public string? Gender { get; set; }
-        public IFormFileCollection? ImageFiles { get; set; }
-        public DateOnly? DateOfBirth { get; set; }
+        public string? Gender { get; set; } = "SystemMale";
+        public DateOnly? DateOfBirth { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         public string? Notes { get; set; }
         public bool? IsActive { get; set; }
     }

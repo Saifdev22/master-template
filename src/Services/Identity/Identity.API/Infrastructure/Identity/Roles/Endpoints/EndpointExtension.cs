@@ -4,8 +4,8 @@
     {
         public static IEndpointRouteBuilder MapRoleEndpoints(this IEndpointRouteBuilder app)
         {
-            app.MapGetRoleByIdEndpoint();
             app.MapGetAllRolesEndpoint();
+            app.MapGetRoleByIdEndpoint();
             app.MapCreateOrUpdateRoleEndpoint();
             app.MapDeleteRoleEndpoint();
 
