@@ -3,7 +3,6 @@ using Identity.API.Infrastructure.Identity.Persistence;
 using Identity.API.Infrastructure.Identity.Roles;
 using Identity.API.Infrastructure.Identity.Roles.Endpoints;
 using Identity.API.Infrastructure.Identity.Roles.Services;
-using Identity.API.Infrastructure.Identity.Tokens.Endpoints;
 using Identity.API.Infrastructure.Identity.Tokens.Services;
 using Identity.API.Infrastructure.Identity.Users;
 using Identity.API.Infrastructure.Identity.Users.Endpoints;
@@ -66,13 +65,24 @@ namespace Identity.API.Infrastructure.Identity
                 //.AddSignInManager()                     
                 .AddRoles<IdentityAppRole>();
 
+            string defaultConnectionString = configuration.GetConnectionString("DefaultConnection")!;
+            using IServiceScope scopeTenant = services.BuildServiceProvider().CreateScope();
+            IdentityAppContext identityAppContext = scopeTenant.ServiceProvider.GetRequiredService<IdentityAppContext>();
+
+            if (identityAppContext.Database.GetPendingMigrations().Any())
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Applying BaseDb Migrations.");
+                Console.ResetColor();
+                identityAppContext.Database.Migrate(); // apply migrations on baseDbContext 
+            }
+
             return services;
         }
 
         public static IEndpointRouteBuilder MapIdentityEndpoints(this IEndpointRouteBuilder app)
         {
             var tokens = app.MapGroup("identity/tokens").WithTags("tokens");
-            tokens.MapTokenEndpoints();
 
             var roles = app.MapGroup("identity/roles").WithTags("roles");
             roles.MapRoleEndpoints();

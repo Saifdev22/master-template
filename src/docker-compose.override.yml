@@ -1,12 +1,46 @@
 services:
+  mssql-database:
+    container_name: test-database
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=SwN12345678
+    restart: always
+    ports:
+      - "1433:1433"
+    networks: 
+      - mynetwork
+ 
   apigateway:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+    depends_on:
+      - identity.api
     ports:
-      - "8080"
-      - "8081"
+      - "6000:8080"
+      - "6060:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  identity.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__DefaultConnection=Server=test-database;Database=IdentityDb;User Id=sa;Password=SwN12345678;Encrypt=False;TrustServerCertificate=True
+    depends_on:
+      - mssql-database
+    ports:
+      - "6001:8080"
+      - "6061:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks: 
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

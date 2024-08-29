@@ -1,6 +1,18 @@
 services:
+  mssql-database:
+    image: mcr.microsoft.com/mssql/server
+
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
+
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.API/Dockerfile
+
+
+

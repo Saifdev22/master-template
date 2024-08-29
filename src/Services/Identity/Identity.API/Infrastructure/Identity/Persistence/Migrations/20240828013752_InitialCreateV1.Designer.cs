@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identity.API.Infrastructure.Identity.Persistence.Migrations
 {
     [DbContext(typeof(IdentityAppContext))]
-    [Migration("20240825022308_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240828013752_InitialCreateV1")]
+    partial class InitialCreateV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

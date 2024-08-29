@@ -75,7 +75,7 @@ namespace Clients.BlazorWASM.Helpers
             var handler = new JwtSecurityTokenHandler();
             var token = handler.ReadJwtToken(jwtToken);
             var claims = token.Claims;
-            
+
             string Id = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value!;
             string Name = claims.First(c => c.Type == ClaimTypes.Name).Value!;
             string Email = claims.First(c => c.Type == ClaimTypes.Email).Value!;

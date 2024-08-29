@@ -8,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 //Controller Support.
 builder.Services.AddControllers();
 
+//Minimal API Swagger Support.
+builder.Services.AddEndpointsApiExplorer();
+
 //Cors
 builder.Services.AddCors(options =>
 {
@@ -50,6 +53,8 @@ builder.AddInfrastructure();
 
 var app = builder.Build();
 
+app.UseInfrastructure();
+
 //Swagger
 if (app.Environment.IsDevelopment())
 {
@@ -57,7 +62,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseInfrastructure();
 
 //app.UseMiddleware<RestrictAccessMiddleware>();
 
