@@ -14,7 +14,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["../Blazor.Shared/Blazor.Shared.csproj", "../Blazor.Shared/"]
 COPY ["Blazor.Server.csproj", "Blazor.Server/"]
-COPY ["../Blazor.Client/Blazor.Client.csproj", "../Blazor.Client/"]
+COPY ["../Blazor.Client/Blazor.Client.csproj", "Blazor.Client/"]
 RUN dotnet restore "./Clients/BlazorWasmHosted/Blazor.Server/Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Clients/BlazorWasmHosted/Blazor.Server"
