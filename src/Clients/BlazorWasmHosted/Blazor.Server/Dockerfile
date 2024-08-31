@@ -13,8 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["./Blazor.Server.csproj", "Blazor.Server/"]
-COPY ["../Blazor.Client/Blazor.Client.csproj", "../Blazor.Client/"]
-COPY ["../Blazor.Shared/Blazor.Shared.csproj", "../Blazor.Shared/"]
+COPY ["../Blazor.Client/Blazor.Client.csproj", "Blazor.Client/"]
+COPY ["../Blazor.Shared/Blazor.Shared.csproj", "Blazor.Shared/"]
 RUN dotnet restore "./Clients/BlazorWasmHosted/Blazor.Server/Blazor.Server.csproj"
 COPY . .
 WORKDIR "/src/Clients/BlazorWasmHosted/Blazor.Server"
