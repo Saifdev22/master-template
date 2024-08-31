@@ -6,7 +6,8 @@
       "serviceActions": {
         "apigateway": "StartDebugging",
         "identity.api": "StartDebugging",
-        "mssql-database": "StartWithoutDebugging"
+        "mssql-database": "StartWithoutDebugging",
+        "blazor.server": "StartDebugging"
       }
     }
   }

@@ -14,5 +14,23 @@ services:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
 
+  # blazor.wasm:
+  #   image: ${DOCKER_REGISTRY-}blazorwasm
+  #   build:
+  #     context: Clients/Clients.BlazorWASM
+  #     dockerfile: Clients/Clients.BlazorWASM/Dockerfile
 
+  blazor.server:
+    image: ${DOCKER_REGISTRY-}blazorserver
+    build:
+      context: .
+      dockerfile: Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_HTTP_PORTS=8080
+        - ASPNETCORE_HTTPS_PORTS=8081
+    ports:
+        - 7000:8080
+        - 7001:8081
+  
 
