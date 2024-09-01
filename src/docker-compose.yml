@@ -21,7 +21,6 @@ services:
   #     dockerfile: Clients/Clients.BlazorWASM/Dockerfile
 
   blazor.server:
-
     image: ${DOCKER_REGISTRY-}blazor-app
     build:
       context: .
