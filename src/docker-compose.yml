@@ -22,6 +22,7 @@ services:
 
   blazor.server:
     image: saifdev22/blazor-app
+
     build:
       context: .
       dockerfile: Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
