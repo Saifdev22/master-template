@@ -12,7 +12,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["./Blazor.Server.csproj", "Blazor.Server/"]
+COPY ["Clients/BlazorWasmHosted/Blazor.Server/Blazor.Server.csproj", "Clients/BlazorWasmHosted/Blazor.Server/"]
 #COPY ["Clients/BlazorWasmHosted/Blazor.Client/Blazor.Client.csproj", "Clients/BlazorWasmHosted/Blazor.Client/"]
 #COPY ["Clients/BlazorWasmHosted/Blazor.Shared/Blazor.Shared.csproj", "Clients/BlazorWasmHosted/Blazor.Shared/"]
 RUN dotnet restore "./Clients/BlazorWasmHosted/Blazor.Server/Blazor.Server.csproj"
