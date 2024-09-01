@@ -4,12 +4,14 @@ services:
 
   apigateway:
     image: saifdev22/apigateway
+    container_name: api-gateway
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
 
   identity.api:
     image: saifdev22/identityapi
+    container_name: identity-api
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
@@ -22,6 +24,7 @@ services:
 
   blazor.server:
     image: saifdev22/blazor-app
+    container_name: blazor-hosted-app
     build:
       context: .
       dockerfile: Clients/BlazorWasmHosted/Blazor.Server/Dockerfile

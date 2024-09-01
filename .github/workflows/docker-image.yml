@@ -61,10 +61,11 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             password: ${{ secrets.SSH_KEY }}
             script: |
-              docker image pull ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
-              docker container stop blazor-v1 || true
+              docker-compose pull
+              docker-compose down || true
               docker container prune -f || true
-              docker run -d --name blazor-v1 --restart unless-stopped -p 32775:8080 ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
+              docker-compose up -d --remove-orphans
               docker image prune -f
+             
       
 # { github.run_number
