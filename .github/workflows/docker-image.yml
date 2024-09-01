@@ -61,11 +61,10 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             password: ${{ secrets.SSH_KEY }}
             script: |
-              docker-compose pull
               docker-compose down || true
-              docker container prune -f || true
-              docker-compose up -d --remove-orphans
-              docker image prune -f
+              docker image prune -a
+              docker-compose pull
+              docker-compose up -d 
              
       
 # { github.run_number
