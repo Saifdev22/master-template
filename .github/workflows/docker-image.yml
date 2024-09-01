@@ -35,20 +35,21 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
   copy_files:
-    name: Copy files to server.
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: copy file via ssh password.
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.SSH_HOST}}
-        username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_KEY }}
-        source: |
-          "./src/docker-compose.yml"
-          "./src/docker-compose.override.yml"
-        target: /home/github-actions
+      name: Copy files to server
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+  
+        - name: copy file via ssh password
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USERNAME }}
+            password: ${{ secrets.SSH_KEY }}
+            source: |
+              "src/docker-compose.yml"
+              "src/docker-compose.override.yml"
+            target: /home/github-actions
 
   update_server:
       name: Deploy to Server
