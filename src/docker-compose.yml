@@ -30,7 +30,7 @@ services:
         - ASPNETCORE_HTTP_PORTS=8080
         - ASPNETCORE_HTTPS_PORTS=8081
     ports:
-        - 7000:8080
-        - 7001:8081
+        - 7860:8080
+        - 7869:8081
   
 
