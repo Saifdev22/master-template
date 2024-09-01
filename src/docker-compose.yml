@@ -4,12 +4,14 @@ services:
 
   apigateway:
     image: saifdev22/apigateway
+    container_name: api-gateway
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
 
   identity.api:
     image: saifdev22/identityapi
+    container_name: identity-api
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
@@ -22,15 +24,10 @@ services:
 
   blazor.server:
     image: saifdev22/blazor-app
+    container_name: blazor-hosted-app
     build:
       context: .
       dockerfile: Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
-    environment:
-        - ASPNETCORE_ENVIRONMENT=Development
-        - ASPNETCORE_HTTP_PORTS=8080
-        - ASPNETCORE_HTTPS_PORTS=8081
-    ports:
-        - 7000:8080
-        - 7001:8081
+
   
 
