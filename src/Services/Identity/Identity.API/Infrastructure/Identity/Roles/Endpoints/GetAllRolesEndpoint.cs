@@ -11,8 +11,8 @@ namespace Identity.API.Infrastructure.Identity.Roles.Endpoints
                 return await roleService.GetAllRoles();
             })
             .WithName(nameof(GetAllRolesEndpoint))
-            .WithSummary("Get all roles.")
-            .WithDescription("Get a list of all roles.");
+            .WithSummary("Get all dragon roles.")
+            .WithDescription("Get a list of dragon z all roles.");
         }
     }
 }
