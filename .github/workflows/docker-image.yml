@@ -62,7 +62,7 @@ jobs:
             password: ${{ secrets.SSH_KEY }}
             script: |
               docker-compose down || true
-              y | docker image prune -a
+              docker image prune -a | y
               docker-compose pull
               docker-compose up -d 
              
