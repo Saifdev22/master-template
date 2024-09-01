@@ -19,6 +19,5 @@ jobs:
             username: ${{ secrets.SSH_USERNAME }}
             password: ${{ secrets.SSH_KEY }}
             source: |
-              src/docker-compose.yml
-              src/docker-compose.override.yml
+              src/docker-compose.yml, src/docker-compose.override.yml
             target: /home/github-actions
