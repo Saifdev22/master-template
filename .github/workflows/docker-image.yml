@@ -9,6 +9,7 @@ on:
 jobs:
 
   build_images:
+    name: Build Docker Images
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,14 +25,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: src
-          file: src/Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest, ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:${{ github.run_number }} 
+      # -
+      #   name: Build and push
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: src
+      #     file: src/Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
+      #     push: true
+      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest, ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:${{ github.run_number }} 
+
+      - name: Build and push with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
+        env:
+          DOCKER_BUILDKIT: 1
 
   update_server:
       name: Deploy to Server

@@ -3,13 +3,13 @@ services:
     image: mcr.microsoft.com/mssql/server
 
   apigateway:
-    image: ${DOCKER_REGISTRY-}apigateway
+    image: ${DOCKER_USERNAME}/apigateway
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
 
   identity.api:
-    image: ${DOCKER_REGISTRY-}identityapi
+    image: ${DOCKER_USERNAME}/identityapi
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
@@ -21,7 +21,7 @@ services:
   #     dockerfile: Clients/Clients.BlazorWASM/Dockerfile
 
   blazor.server:
-    image: ${DOCKER_REGISTRY-}blazorserver
+    image: ${DOCKER_REGISTRY-}blazor-app
     build:
       context: .
       dockerfile: Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
