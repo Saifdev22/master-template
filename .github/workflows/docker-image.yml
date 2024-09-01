@@ -63,6 +63,7 @@ jobs:
             script: |
               docker-compose down || true
               docker image prune -a
+              y
               docker-compose pull
               docker-compose up -d 
              
