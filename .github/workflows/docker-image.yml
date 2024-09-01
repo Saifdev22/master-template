@@ -51,6 +51,6 @@ jobs:
               docker image pull ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
               docker container stop blazor-v1 || true
               docker container prune -f || true
-              docker run -d --name blazor-v1 --restart unless-stopped -p 32775:80 ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
+              docker run -d --name blazor-v1 --restart unless-stopped -p 32775:8080 ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
               docker image prune -f
       
