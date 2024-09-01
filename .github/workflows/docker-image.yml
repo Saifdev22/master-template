@@ -30,8 +30,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./src/Clients/BlazorWasmHosted/Blazor.Server
-          file: ./Dockerfile
+          context: src
+          file: src/Clients/BlazorWasmHosted/Blazor.Server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest, ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:${{ github.run_number }} 
 
@@ -51,6 +51,6 @@ jobs:
               docker image pull ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
               docker container stop blazor-v1 || true
               docker container prune -f || true
-              docker run -d --name blazor-v1 --restart unless-stopped -p 32775:80 ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
+              docker run -d --name blazor-v1 --restart unless-stopped -p 32775:8080 ${{ secrets.DOCKERHUB_USERNAME }}/blazor-app:latest
               docker image prune -f
       
