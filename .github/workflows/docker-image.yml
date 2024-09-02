@@ -49,6 +49,7 @@ jobs:
             target: /home/github-actions
 
   update_server:
+
       name: Deploy to Server
       runs-on: ubuntu-latest
       needs: build_images
