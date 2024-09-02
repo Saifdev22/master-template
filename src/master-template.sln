@@ -43,15 +43,12 @@ EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7AF6DDDB-5120-4BAC-BD2C-ED00247FE23A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlazorWasmHosted", "BlazorWasmHosted", "{83613BAE-FB02-40D1-852D-42162579449A}"
-	ProjectSection(SolutionItems) = preProject
-		README.txt = README.txt
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Server", "Clients\BlazorWasmHosted\Blazor.Server\Blazor.Server.csproj", "{07C62153-5A6A-41F2-BE30-B9F02AD4531C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Server", "Clients\BlazorWasmHosted\Blazor.Server\Blazor.Server.csproj", "{07C62153-5A6A-41F2-BE30-B9F02AD4531C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Client", "Clients\BlazorWasmHosted\Blazor.Client\Blazor.Client.csproj", "{52FD53DA-3FFC-4A8E-BE47-F455A7D3D08C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Client", "Clients\BlazorWasmHosted\Blazor.Client\Blazor.Client.csproj", "{52FD53DA-3FFC-4A8E-BE47-F455A7D3D08C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Shared", "Clients\BlazorWasmHosted\Blazor.Shared\Blazor.Shared.csproj", "{FAD1246D-E664-4BE3-BB85-9BE447C2291D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor.Shared", "Clients\BlazorWasmHosted\Blazor.Shared\Blazor.Shared.csproj", "{FAD1246D-E664-4BE3-BB85-9BE447C2291D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
