@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Starter.Domain.Abstractions;
+namespace Starter.Domain.Common.Abstractions;
 public interface IDomainEvent : INotification
 {
     Guid EventId => Guid.NewGuid();

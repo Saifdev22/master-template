@@ -1,4 +1,4 @@
-﻿namespace Starter.Domain.Abstractions;
+﻿namespace Starter.Domain.Common.Abstractions;
 public abstract class Entity<T> : IEntity<T>
 {
     public required T Id { get; set; }

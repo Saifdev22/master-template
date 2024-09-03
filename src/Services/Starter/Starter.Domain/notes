@@ -1,0 +1,19 @@
+﻿This is the heart of your application, containing the domain logic.
+
+Entities: Core domain objects with identity.
+ValueObjects: Objects that describe aspects of the domain with no identity.
+Aggregates: Group of related entities and value objects treated as a single unit.
+Repositories: Interfaces for accessing domain objects.
+Specifications: Encapsulate complex query logic or business rules.
+DomainEvents: Events that are raised when something noteworthy happens in the domain.
+Factories: Classes that handle the creation of complex domain objects.
+Services: Domain services that encapsulate domain logic not naturally belonging to an entity or value object.
+Domain Exceptions: Rrepresents violations of business rules or illegal operations within the domain model.
+
+
+Errors
+Constants 
+Enums
+Abstractions
+
+

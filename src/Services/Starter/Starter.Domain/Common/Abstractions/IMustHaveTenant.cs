@@ -1,4 +1,4 @@
-﻿namespace Starter.Domain.Abstractions
+﻿namespace Starter.Domain.Common.Abstractions
 {
     public interface IMustHaveTenant
     {

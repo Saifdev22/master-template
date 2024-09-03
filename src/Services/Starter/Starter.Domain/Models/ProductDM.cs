@@ -1,4 +1,6 @@
-﻿namespace Starter.Domain.Models
+﻿using Starter.Domain.Common.Abstractions;
+
+namespace Starter.Domain.Models
 {
     public class ProductDM : Entity<int>
     {

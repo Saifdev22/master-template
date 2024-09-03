@@ -1,1 +1,1 @@
-﻿global using Starter.Domain.Abstractions;
+﻿global using Starter.Domain.Common.Abstractions;

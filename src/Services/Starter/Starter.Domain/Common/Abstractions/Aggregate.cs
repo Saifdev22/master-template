@@ -1,4 +1,4 @@
-﻿namespace Starter.Domain.Abstractions;
+﻿namespace Starter.Domain.Common.Abstractions;
 public abstract class Aggregate<TId> : Entity<TId>, IAggregate<TId>
 {
     private readonly List<IDomainEvent> _domainEvents = new();

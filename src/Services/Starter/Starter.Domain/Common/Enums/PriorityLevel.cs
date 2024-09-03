@@ -1,4 +1,4 @@
-﻿namespace Starter.Domain.Enums
+﻿namespace Starter.Domain.Common.Enums
 {
     public enum PriorityLevel
     {

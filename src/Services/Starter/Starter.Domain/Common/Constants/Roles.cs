@@ -1,4 +1,4 @@
-﻿namespace Starter.Domain.Constants
+﻿namespace Starter.Domain.Common.Constants
 {
     public abstract class Roles
     {
