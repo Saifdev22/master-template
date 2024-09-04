@@ -1,41 +1,69 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Starter.Domain.Inventory.Entities
 {
-    public class INItem
+    public sealed class INItem 
     {
-        public Guid Id { get; private set; }
-        public string ItemCode { get; private set; }
-        public int Quantity { get; private set; }
-        public decimal Price { get; private set; }
-        public bool IsActive { get; private set; }
-
-        public INItem(Guid id, string itemCode, int quantity, decimal price)
+        private INItem
+        (
+            int itemId,
+            int categoryId,
+            string itemCode,
+            string itemDesc,
+            decimal price,
+            string notes,
+            bool isActive
+        )
+            : base()
         {
-            if (string.IsNullOrEmpty(itemCode))
-                throw new ValidationException("Name cannot be empty.");
-            if (quantity < 0)
-                throw new ValidationException("Quantity cannot be negative.");
-            if (price < 0)
-                throw new ValidationException("Price cannot be negative.");
-
-            Id = id;
-            ItemCode = itemCode;
-            Quantity = quantity;
-            Price = price;
+           ItemId = itemId;
+           CategoryId = categoryId;
+           ItemCode = itemCode;
+           ItemDesc = itemDesc;
+           Price = price;
+           Notes = notes;
+           IsActive = isActive;
         }
 
-        public void AdjustQuantity(int amount)
-        {
-            //if (Quantity + amount < 0)
-            //    throw new InventoryOperationException("Cannot reduce quantity below zero.");
+        public int ItemId { get; private set; }
+        public int CategoryId { get; private set; }
+        public string ItemCode { get; private set; }
+        public string ItemDesc { get; private set; }
+        public decimal Price { get; private set; }
+        public string Notes { get; private set; }
+        public bool IsActive { get; private set; }
 
-            Quantity += amount;
+        //Static Factory Method
+        public static INItem Create
+        (
+            int itemId,
+            int categoryId,
+            string itemCode,
+            string itemDesc,
+            decimal price,
+            string notes,
+            bool isActive
+        )
+        {
+            var initem = new INItem
+            (
+                itemId,
+                categoryId,
+                itemCode,
+                itemDesc,
+                price,
+                notes,
+                isActive
+            );
+
+            return initem;
         }
     }
 }
