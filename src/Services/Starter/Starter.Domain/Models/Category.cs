@@ -1,6 +1,4 @@
-﻿using Starter.Domain.Common.Abstractions;
-
-namespace Starter.Domain.Models
+﻿namespace Starter.Domain.Models
 {
     public class Category : Entity<Guid>, IMustHaveTenant
     {

@@ -7,19 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="notes" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Common\Errors\" />
-    <Folder Include="Common\Exceptions\" />
-    <Folder Include="Inventory\Events\" />
-    <Folder Include="Inventory\Exceptions\" />
-    <Folder Include="Inventory\ValueObjects\" />
   </ItemGroup>
 
 </Project>
