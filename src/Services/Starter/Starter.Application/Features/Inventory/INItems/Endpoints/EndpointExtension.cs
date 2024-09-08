@@ -7,6 +7,12 @@ namespace Starter.Application.Features.Inventory.INItems.Endpoints
         public static IEndpointRouteBuilder MapINItemEndpoints(this IEndpointRouteBuilder app)
         {
             app.MapCreateINItemEndpoint();
+            app.MapUpdateINItemEndpoint();
+            app.MapDeleteINItemEndpoint();
+
+            app.MapGetINItemsEndpoint();
+            app.MapGetINItemByIDEndpoint();
+            app.MapGetINItemByCodeEndpoint();
 
             return app;
         }

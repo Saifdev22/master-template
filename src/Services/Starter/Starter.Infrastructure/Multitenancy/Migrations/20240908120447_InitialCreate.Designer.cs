@@ -11,7 +11,7 @@ using Starter.Infrastructure.Multitenancy;
 namespace Starter.Infrastructure.Multitenancy.Migrations
 {
     [DbContext(typeof(TenantDbContext))]
-    [Migration("20240907103107_InitialCreate")]
+    [Migration("20240908120447_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

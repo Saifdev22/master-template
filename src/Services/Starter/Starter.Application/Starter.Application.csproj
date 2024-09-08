@@ -17,10 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Inventory\INItems\Commands\UpdateINItem\" />
     <Folder Include="Features\Inventory\INItems\EventHandlers\Domain\" />
     <Folder Include="Features\Inventory\INItems\EventHandlers\Integration\" />
-    <Folder Include="Features\Inventory\INItems\Queries\GetINItemByID\" />
+    <Folder Include="Features\Inventory\INCategory\" />
   </ItemGroup>
 
 </Project>

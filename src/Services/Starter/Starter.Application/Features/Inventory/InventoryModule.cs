@@ -9,8 +9,8 @@ namespace Starter.Application.Features.Inventory
     {
         public static IEndpointRouteBuilder MapInventoryEndpoints(this IEndpointRouteBuilder app)
         {
-            var inItems = app.MapGroup("inventory/initem").WithTags("initems");
-            inItems.MapINItemEndpoints();
+            var INItem = app.MapGroup("inventory/initem").WithTags("INItem");
+            INItem.MapINItemEndpoints();
 
             return app;
         }

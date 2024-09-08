@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Starter.Application.Features.Inventory.INItems.Queries.GetINItemByCode
+﻿namespace Starter.Application.Features.Inventory.INItems.Queries.GetINItemByCode
 {
-    internal class GetINItemByCodeQuery
-    {
-    }
+    public record GetINItemByCodeQuery(string INItemCode)
+        : IQuery<GetINItemByCodeResult>;
+
+    public record GetINItemByCodeResult(INItem INItem);
 }

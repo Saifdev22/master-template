@@ -8,17 +8,17 @@ public class AuditableEntityInterceptor(ICurrentUserService _currentUserService)
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
-        UpdateEntities(eventData.Context);
+        UpdateAuditEntities(eventData.Context);
         return base.SavingChanges(eventData, result);
     }
 
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
-        UpdateEntities(eventData.Context);
+        UpdateAuditEntities(eventData.Context);
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public void UpdateEntities(DbContext? context)
+    public void UpdateAuditEntities(DbContext? context)
     {
         if (context == null) return;
 
@@ -39,6 +39,7 @@ public class AuditableEntityInterceptor(ICurrentUserService _currentUserService)
         }
     }
 }
+
 
 public static class Extensions
 {

@@ -1,16 +1,12 @@
-using Serilog;
 using Starter.Application;
 using Starter.Infrastructure;
-
-Log.Information("Starter.API is booting up..");
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-//C# Libraries
 builder.AddInfrastructureServices();
-builder.Services.AddApplicationServices(builder.Configuration);
+builder.AddApplicationServices();
 
 var app = builder.Build();
 

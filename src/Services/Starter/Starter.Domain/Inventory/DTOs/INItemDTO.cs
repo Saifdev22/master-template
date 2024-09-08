@@ -1,6 +1,6 @@
 ﻿namespace Starter.Domain.Inventory.DTOs
 {
-    public record INItemCommandDTO
+    public record CreateINItemDTO
     (
         string ItemCode,
         string ItemDesc,
@@ -9,4 +9,13 @@
         bool IsActive
     );
 
+    public record UpdateINItemDTO
+    (
+        Guid ItemID,
+        string ItemCode,
+        string ItemDesc,
+        decimal Price,
+        string Notes,
+        bool IsActive
+    );
 }
