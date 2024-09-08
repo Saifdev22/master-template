@@ -11,7 +11,7 @@ namespace Starter.Domain.Inventory.ValueObjects
             ArgumentNullException.ThrowIfNull(value);
             if (value == Guid.Empty)
             {
-                throw new DomainException("OrderId cannot be empty.");
+                throw new DomainException("Item Id cannot be empty.");
             }
 
             return new INItemID(value);

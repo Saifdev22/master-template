@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Starter.Infrastructure.Persistence;
 using static BuildingBlocksClient.Starter.DTOs.TenantDTO;
 
 namespace Starter.Infrastructure.Multitenancy.Services

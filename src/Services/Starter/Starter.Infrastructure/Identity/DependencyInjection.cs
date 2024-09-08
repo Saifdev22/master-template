@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Starter.Application.Identity.Users.Abstractions;
-using Starter.Infrastructure.Auth;
+using Starter.Infrastructure.Identity.Users;
 using Starter.Infrastructure.Identity.Users.Services;
 
 namespace Starter.Infrastructure.Identity

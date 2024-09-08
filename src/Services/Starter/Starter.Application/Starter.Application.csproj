@@ -16,4 +16,11 @@
     <ProjectReference Include="..\Starter.Domain\Starter.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Inventory\INItems\Commands\UpdateINItem\" />
+    <Folder Include="Features\Inventory\INItems\EventHandlers\Domain\" />
+    <Folder Include="Features\Inventory\INItems\EventHandlers\Integration\" />
+    <Folder Include="Features\Inventory\INItems\Queries\GetINItemByID\" />
+  </ItemGroup>
+
 </Project>

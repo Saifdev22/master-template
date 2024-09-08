@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -19,10 +20,14 @@ namespace Starter.Application
                 config.AddOpenBehavior(typeof(LoggingBehavior<,>));
             });
 
-            //services.AddFeatureManagement();
-            //services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
-
             return services;
+        }
+
+        public static WebApplication UseApplicationServices(this WebApplication app)
+        {
+            app.MapInventoryEndpoints();
+
+            return app;
         }
     }
 }

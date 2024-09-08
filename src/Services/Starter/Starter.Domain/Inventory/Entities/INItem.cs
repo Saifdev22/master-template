@@ -3,9 +3,8 @@ using Starter.Domain.Inventory.ValueObjects;
 
 namespace Starter.Domain.Inventory.Entities
 {
-    public sealed class INItem : Aggregate<INItemID>
+    public class INItem : Aggregate<INItemID>
     {
-        public int CategoryId { get; private set; }
         public string ItemCode { get; private set; } = default!;
         public string ItemDesc { get; private set; } = default!;
         public decimal Price { get; private set; }
@@ -16,7 +15,6 @@ namespace Starter.Domain.Inventory.Entities
         public static INItem Create
         (
             INItemID id,
-            int categoryId,
             string itemCode,
             string itemDesc,
             decimal price,
@@ -26,8 +24,7 @@ namespace Starter.Domain.Inventory.Entities
         {
             var initem = new INItem
             {
-                Id = id, 
-                CategoryId = categoryId,
+                Id = id,
                 ItemCode = itemCode,
                 ItemDesc = itemDesc,
                 Price = price,

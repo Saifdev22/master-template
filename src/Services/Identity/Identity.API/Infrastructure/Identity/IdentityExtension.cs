@@ -3,6 +3,7 @@ using Identity.API.Infrastructure.Identity.Persistence;
 using Identity.API.Infrastructure.Identity.Roles;
 using Identity.API.Infrastructure.Identity.Roles.Endpoints;
 using Identity.API.Infrastructure.Identity.Roles.Services;
+using Identity.API.Infrastructure.Identity.Tokens.Endpoints;
 using Identity.API.Infrastructure.Identity.Tokens.Services;
 using Identity.API.Infrastructure.Identity.Users;
 using Identity.API.Infrastructure.Identity.Users.Endpoints;
@@ -83,6 +84,7 @@ namespace Identity.API.Infrastructure.Identity
         public static IEndpointRouteBuilder MapIdentityEndpoints(this IEndpointRouteBuilder app)
         {
             var tokens = app.MapGroup("identity/tokens").WithTags("tokens");
+            tokens.MapTokenEndpoints();
 
             var roles = app.MapGroup("identity/roles").WithTags("roles");
             roles.MapRoleEndpoints();
