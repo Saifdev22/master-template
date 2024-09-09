@@ -1,0 +1,5 @@
+1. Clean up Starter.API
+
+2. Domain Events
+
+3. 

@@ -36,7 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Application.txt = Application.txt
 		Blazor.txt = Blazor.txt
 		Help.txt = Help.txt
-		Infrastructure.txt = Infrastructure.txt
+		Steps.txt = Steps.txt
+		ToDoList.txt = ToDoList.txt
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7AF6DDDB-5120-4BAC-BD2C-ED00247FE23A}"
